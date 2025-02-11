@@ -1,3 +1,731 @@
+window.klaroApiConfigs = [{
+    "version": 1,
+    "cookieExpiresAfterDays": 365,
+    "name": "default",
+    "status": "active",
+    "id": "e06a48c853d0db0a3b8ee7c647c23768",
+    "elementID": "klaro",
+    "storageMethod": "cookie",
+    "cookieName": "klaro",
+    "additionalClass": "klaro-demo",
+    "lang": "zz",
+    "languages": ["en", "nl", "zh", "pl", "de", "es", "it", "fr", "pt"],
+    "hideToggleAll": false,
+    "htmlTexts": true,
+    "embedded": false,
+    "groupByPurpose": true,
+    "purposeOrder": ["performance", "marketing"],
+    "default": false,
+    "mustConsent": false,
+    "disablePoweredBy": false,
+    "acceptAll": true,
+    "hideDeclineAll": false,
+    "noticeAsModal": false,
+    "translations": {
+        "de": {
+            "apps": {
+                "cloudflare": {},
+                "konsens": {}
+            },
+            "privacyPolicyUrl": "https://heyklaro.com/de/ressourcen/datenschutz",
+            "purposes": {
+                "analytics": {},
+                "convenience": {},
+                "functional": {},
+                "marketing": {},
+                "performance": {},
+                "security": {}
+            }
+        },
+        "en": {
+            "apps": {
+                "cloudflare": {},
+                "konsens": {}
+            },
+            "cloudflare": {
+                "description": "Protection against DDoS attacks",
+                "title": "Cloudflare"
+            },
+            "consentModal": {
+                "description": "This website uses third-party applications. To protect and manage your privacy you can review and control these apps here."
+            },
+            "konsens": {
+                "description": "Collecting of anonymous visitor statistics",
+                "title": "Konsens"
+            },
+            "privacyPolicyUrl": "https://heyklaro.com/resources/privacy",
+            "purposes": {
+                "analytics": "Analytics",
+                "convenience": {},
+                "functional": {},
+                "marketing": {},
+                "performance": {},
+                "security": "Security"
+            }
+        },
+        "es": {
+            "apps": {
+                "cloudflare": {},
+                "konsens": {}
+            },
+            "privacyPolicyUrl": "https://heyklaro.com/es/recursos/proteccin-de-datos",
+            "purposes": {
+                "analytics": {},
+                "convenience": {},
+                "functional": {},
+                "marketing": {},
+                "performance": {},
+                "security": {}
+            }
+        },
+        "fr": {
+            "apps": {
+                "cloudflare": {},
+                "konsens": {}
+            },
+            "privacyPolicyUrl": "https://heyklaro.com/fr/ressources/protection-des-donnes",
+            "purposes": {
+                "analytics": {},
+                "convenience": {},
+                "functional": {},
+                "marketing": {},
+                "performance": {},
+                "security": {}
+            }
+        },
+        "it": {
+            "apps": {
+                "cloudflare": {},
+                "konsens": {}
+            },
+            "privacyPolicyUrl": "https://heyklaro.com/it/risorse/protezione-dei-dati",
+            "purposes": {
+                "analytics": {},
+                "convenience": {},
+                "functional": {},
+                "marketing": {},
+                "performance": {},
+                "security": {}
+            }
+        },
+        "nl": {
+            "apps": {
+                "cloudflare": {},
+                "konsens": {}
+            },
+            "privacyPolicyUrl": "https://heyklaro.com/nl/bronnen/gegevensbescherming",
+            "purposes": {
+                "analytics": {},
+                "convenience": {},
+                "functional": {},
+                "marketing": {},
+                "performance": {},
+                "security": {}
+            }
+        },
+        "pl": {
+            "apps": {
+                "cloudflare": {},
+                "konsens": {}
+            },
+            "privacyPolicyUrl": "https://heyklaro.com/pl/zasoby/ochrona-danych",
+            "purposes": {
+                "analytics": {},
+                "convenience": {},
+                "functional": {},
+                "marketing": {},
+                "performance": {},
+                "security": {}
+            }
+        },
+        "pt": {
+            "apps": {
+                "cloudflare": {},
+                "konsens": {}
+            },
+            "privacyPolicyUrl": "https://heyklaro.com/pt/recursos/proteo-de-dados",
+            "purposes": {
+                "analytics": {},
+                "convenience": {},
+                "functional": {},
+                "marketing": {},
+                "performance": {},
+                "security": {}
+            }
+        },
+        "zh": {
+            "apps": {
+                "cloudflare": {},
+                "konsens": {}
+            },
+            "privacyPolicyUrl": "https://heyklaro.com/zh/resources/privacy",
+            "purposes": {
+                "analytics": {},
+                "convenience": {},
+                "functional": {},
+                "marketing": {},
+                "performance": {},
+                "security": {}
+            }
+        },
+        "zz": {
+            "apps": {
+                "cloudflare": {},
+                "konsens": {}
+            },
+            "privacyPolicyUrl": "https://heyklaro.com/resources/privacy",
+            "purposes": {
+                "analytics": {},
+                "convenience": {},
+                "functional": {},
+                "marketing": {},
+                "performance": {},
+                "security": {}
+            }
+        }
+    },
+    "styling": {
+        "theme": ["right", "bottom", "light"]
+    },
+    "services": [{
+        "id": "",
+        "version": 1,
+        "name": "konsens",
+        "purposes": ["performance"],
+        "default": false,
+        "required": false,
+        "optOut": false,
+        "contextualConsentOnly": false,
+        "onlyOnce": true,
+        "translations": {
+            "de": {},
+            "en": {},
+            "es": {},
+            "fr": {},
+            "it": {},
+            "nl": {},
+            "pl": {},
+            "pt": {},
+            "zh": {},
+            "zz": {}
+        },
+        "cookies": [],
+        "localStorage": [],
+        "sessionStorage": [],
+        "elements": null,
+        "requests": [],
+        "actions": null
+    }, {
+        "id": "",
+        "version": 1,
+        "name": "openstreetmap",
+        "purposes": ["marketing"],
+        "default": false,
+        "required": false,
+        "optOut": false,
+        "contextualConsentOnly": true,
+        "onlyOnce": false,
+        "translations": {
+            "de": {},
+            "en": {},
+            "es": {},
+            "fr": {},
+            "it": {},
+            "nl": {},
+            "pl": {},
+            "pt": {},
+            "zh": {},
+            "zz": {
+                "title": "OpenStreetMap (OSM)"
+            }
+        },
+        "cookies": [],
+        "localStorage": [],
+        "sessionStorage": [],
+        "elements": null,
+        "requests": [],
+        "actions": null
+    }]
+}, {
+    "version": 1,
+    "cookieExpiresAfterDays": 30,
+    "name": "demo",
+    "status": "inactive",
+    "id": "c2a42cab0df3ad26e6487b669a89e1bf",
+    "elementID": "klaro",
+    "storageMethod": "cookie",
+    "cookieName": "klaro",
+    "additionalClass": "klaro-demo",
+    "lang": "zz",
+    "languages": ["en", "nl", "zh", "pl", "de", "es", "it", "fr", "pt"],
+    "hideToggleAll": false,
+    "htmlTexts": true,
+    "embedded": false,
+    "groupByPurpose": true,
+    "purposeOrder": ["performance", "marketing", "functional"],
+    "default": false,
+    "mustConsent": false,
+    "disablePoweredBy": false,
+    "acceptAll": true,
+    "hideDeclineAll": false,
+    "noticeAsModal": false,
+    "translations": {
+        "de": {
+            "apps": {
+                "adsense": {},
+                "camera": {},
+                "cloudflare": {},
+                "externalTracker": {},
+                "externaltracker": {},
+                "googleFonts": {},
+                "googlefonts": {},
+                "inlineTracker": {},
+                "inlinetracker": {},
+                "intercom": {},
+                "konsens": {},
+                "matomo": {},
+                "mouseflow": {}
+            },
+            "purposes": {
+                "advertising": {},
+                "analytics": {},
+                "functional": {},
+                "livechat": {},
+                "marketing": {},
+                "performance": {},
+                "security": {},
+                "styling": {}
+            }
+        },
+        "en": {
+            "adsense": {
+                "description": "Displaying of advertisements (just an example)",
+                "title": "Google Adsense Advertisement*"
+            },
+            "apps": {
+                "adsense": {},
+                "camera": {},
+                "cloudflare": {},
+                "externalTracker": {},
+                "externaltracker": {},
+                "googleFonts": {},
+                "googlefonts": {},
+                "inlineTracker": {},
+                "inlinetracker": {},
+                "intercom": {},
+                "konsens": {},
+                "matomo": {},
+                "mouseflow": {}
+            },
+            "camera": {
+                "description": "A surveillance camera (just an example for an IMG tag)",
+                "title": "Surveillance Camera*"
+            },
+            "cloudflare": {
+                "description": "Protection against DDoS attacks",
+                "title": "Cloudflare"
+            },
+            "consentModal": {
+                "description": "Here you can see and customize the information that we collect about you. \u003cstrong\u003ePlease note:\u003c/strong\u003e Entries marked with \u003csup\u003e\u003cstrong\u003e*\u003c/strong\u003e\u003c/sup\u003e are just examples and not really used on this website."
+            },
+            "externalTracker": {
+                "description": "Example of an external tracking script",
+                "title": "External Tracker*"
+            },
+            "googleFonts": {
+                "description": "Web fonts hosted by Google",
+                "title": "Google Fonts*"
+            },
+            "inlineTracker": {
+                "description": "Example of an inline tracking script",
+                "title": "Inline Tracker*"
+            },
+            "intercom": {
+                "description": "Chat widget \u0026 collecting of visitor statistics (just an example)",
+                "title": "Intercom*"
+            },
+            "konsens": {
+                "description": "Collecting of anonymous visitor statistics",
+                "title": "Konsens"
+            },
+            "matomo": {
+                "description": "Collecting of visitor statistics",
+                "title": "Matomo*"
+            },
+            "mouseflow": {
+                "description": "Real-Time user analytics (just an example)",
+                "title": "Mouseflow*"
+            },
+            "purposes": {
+                "advertising": "Advertising",
+                "analytics": "Analytics",
+                "functional": {},
+                "livechat": "Livechat",
+                "marketing": {},
+                "performance": {},
+                "security": "Security",
+                "styling": "Styling"
+            }
+        },
+        "es": {
+            "apps": {
+                "adsense": {},
+                "camera": {},
+                "cloudflare": {},
+                "externalTracker": {},
+                "externaltracker": {},
+                "googleFonts": {},
+                "googlefonts": {},
+                "inlineTracker": {},
+                "inlinetracker": {},
+                "intercom": {},
+                "konsens": {},
+                "matomo": {},
+                "mouseflow": {}
+            },
+            "purposes": {
+                "advertising": {},
+                "analytics": {},
+                "functional": {},
+                "livechat": {},
+                "marketing": {},
+                "performance": {},
+                "security": {},
+                "styling": {}
+            }
+        },
+        "fr": {
+            "apps": {
+                "adsense": {},
+                "camera": {},
+                "cloudflare": {},
+                "externaltracker": {},
+                "googlefonts": {},
+                "inlinetracker": {},
+                "intercom": {},
+                "konsens": {},
+                "matomo": {},
+                "mouseflow": {}
+            },
+            "purposes": {
+                "advertising": {},
+                "analytics": {},
+                "functional": {},
+                "livechat": {},
+                "marketing": {},
+                "performance": {},
+                "security": {},
+                "styling": {}
+            }
+        },
+        "it": {
+            "apps": {
+                "adsense": {},
+                "camera": {},
+                "cloudflare": {},
+                "externaltracker": {},
+                "googlefonts": {},
+                "inlinetracker": {},
+                "intercom": {},
+                "konsens": {},
+                "matomo": {},
+                "mouseflow": {}
+            },
+            "purposes": {
+                "advertising": {},
+                "analytics": {},
+                "functional": {},
+                "livechat": {},
+                "marketing": {},
+                "performance": {},
+                "security": {},
+                "styling": {}
+            }
+        },
+        "nl": {
+            "apps": {
+                "adsense": {},
+                "camera": {},
+                "cloudflare": {},
+                "externalTracker": {},
+                "externaltracker": {},
+                "googleFonts": {},
+                "googlefonts": {},
+                "inlineTracker": {},
+                "inlinetracker": {},
+                "intercom": {},
+                "konsens": {},
+                "matomo": {},
+                "mouseflow": {}
+            },
+            "purposes": {
+                "advertising": {},
+                "analytics": {},
+                "functional": {},
+                "livechat": {},
+                "marketing": {},
+                "performance": {},
+                "security": {},
+                "styling": {}
+            }
+        },
+        "pl": {
+            "apps": {
+                "adsense": {},
+                "camera": {},
+                "cloudflare": {},
+                "externalTracker": {},
+                "externaltracker": {},
+                "googleFonts": {},
+                "googlefonts": {},
+                "inlineTracker": {},
+                "inlinetracker": {},
+                "intercom": {},
+                "konsens": {},
+                "matomo": {},
+                "mouseflow": {}
+            },
+            "purposes": {
+                "advertising": {},
+                "analytics": {},
+                "functional": {},
+                "livechat": {},
+                "marketing": {},
+                "performance": {},
+                "security": {},
+                "styling": {}
+            }
+        },
+        "pt": {
+            "apps": {
+                "adsense": {},
+                "camera": {},
+                "cloudflare": {},
+                "externaltracker": {},
+                "googlefonts": {},
+                "inlinetracker": {},
+                "intercom": {},
+                "konsens": {},
+                "matomo": {},
+                "mouseflow": {}
+            },
+            "purposes": {
+                "advertising": {},
+                "analytics": {},
+                "functional": {},
+                "livechat": {},
+                "marketing": {},
+                "performance": {},
+                "security": {},
+                "styling": {}
+            }
+        },
+        "zh": {
+            "apps": {
+                "adsense": {},
+                "camera": {},
+                "cloudflare": {},
+                "externalTracker": {},
+                "externaltracker": {},
+                "googleFonts": {},
+                "googlefonts": {},
+                "inlineTracker": {},
+                "inlinetracker": {},
+                "intercom": {},
+                "konsens": {},
+                "matomo": {},
+                "mouseflow": {}
+            },
+            "purposes": {
+                "advertising": {},
+                "analytics": {},
+                "functional": {},
+                "livechat": {},
+                "marketing": {},
+                "performance": {},
+                "security": {},
+                "styling": {}
+            }
+        },
+        "zz": {
+            "apps": {
+                "adsense": {},
+                "camera": {},
+                "cloudflare": {},
+                "externalTracker": {},
+                "externaltracker": {},
+                "googleFonts": {},
+                "googlefonts": {},
+                "inlineTracker": {},
+                "inlinetracker": {},
+                "intercom": {},
+                "konsens": {},
+                "matomo": {},
+                "mouseflow": {}
+            },
+            "purposes": {
+                "advertising": {},
+                "analytics": {},
+                "functional": {},
+                "livechat": {},
+                "marketing": {},
+                "performance": {},
+                "security": {},
+                "styling": {}
+            }
+        }
+    },
+    "styling": {
+        "theme": ["light", "wide"]
+    },
+    "services": [{
+        "id": "",
+        "version": 1,
+        "name": "konsens",
+        "purposes": ["performance"],
+        "default": true,
+        "required": false,
+        "optOut": false,
+        "contextualConsentOnly": false,
+        "onlyOnce": true,
+        "translations": {
+            "de": {},
+            "en": {},
+            "es": {},
+            "fr": {},
+            "it": {},
+            "nl": {},
+            "pl": {},
+            "pt": {},
+            "zh": {},
+            "zz": {}
+        },
+        "cookies": [],
+        "localStorage": [],
+        "sessionStorage": [],
+        "elements": null,
+        "requests": [],
+        "actions": null
+    }, {
+        "id": "",
+        "version": 1,
+        "name": "cloudflare",
+        "purposes": ["functional"],
+        "default": false,
+        "required": true,
+        "optOut": false,
+        "contextualConsentOnly": false,
+        "onlyOnce": false,
+        "translations": {
+            "de": {},
+            "en": {},
+            "es": {},
+            "fr": {},
+            "it": {},
+            "nl": {},
+            "pl": {},
+            "pt": {},
+            "zh": {},
+            "zz": {}
+        },
+        "cookies": [],
+        "localStorage": [],
+        "sessionStorage": [],
+        "elements": null,
+        "requests": [],
+        "actions": null
+    }, {
+        "id": "",
+        "version": 1,
+        "name": "matomo",
+        "purposes": ["performance"],
+        "default": false,
+        "required": false,
+        "optOut": false,
+        "contextualConsentOnly": false,
+        "onlyOnce": true,
+        "translations": {
+            "de": {},
+            "en": {},
+            "es": {},
+            "fr": {},
+            "it": {},
+            "nl": {},
+            "pl": {},
+            "pt": {},
+            "zh": {},
+            "zz": {}
+        },
+        "cookies": [{
+            "pattern": "piwik_ignore",
+            "expiresAfter": "",
+            "path": ""
+        }],
+        "localStorage": [],
+        "sessionStorage": [],
+        "elements": null,
+        "requests": [],
+        "actions": null
+    }, {
+        "id": "",
+        "version": 1,
+        "name": "intercom",
+        "purposes": ["marketing", "performance"],
+        "default": true,
+        "required": false,
+        "optOut": false,
+        "contextualConsentOnly": false,
+        "onlyOnce": false,
+        "translations": {
+            "de": {},
+            "en": {},
+            "es": {},
+            "fr": {},
+            "it": {},
+            "nl": {},
+            "pl": {},
+            "pt": {},
+            "zh": {},
+            "zz": {}
+        },
+        "cookies": [],
+        "localStorage": [],
+        "sessionStorage": [],
+        "elements": null,
+        "requests": [],
+        "actions": null
+    }, {
+        "id": "",
+        "version": 1,
+        "name": "googlefonts",
+        "purposes": ["functional"],
+        "default": false,
+        "required": true,
+        "optOut": false,
+        "contextualConsentOnly": false,
+        "onlyOnce": false,
+        "translations": {
+            "de": {},
+            "en": {},
+            "es": {},
+            "fr": {},
+            "it": {},
+            "nl": {},
+            "pl": {},
+            "pt": {},
+            "zh": {},
+            "zz": {
+                "title": "Google Fonts*"
+            }
+        },
+        "cookies": [],
+        "localStorage": [],
+        "sessionStorage": [],
+        "elements": null,
+        "requests": [],
+        "actions": null
+    }]
+}];
 !function(e, t) {
     "object" == typeof exports && "object" == typeof module ? module.exports = t() : "function" == typeof define && define.amd ? define([], t) : "object" == typeof exports ? exports.klaro = t() : e.klaro = t()
 }(self, ( () => ( () => {
