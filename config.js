@@ -16,7 +16,7 @@ var klaroConfig = {
     // supporting IE9-10 (which you probably shouldn't) you need to use Klaro
     // with an external stylesheet as the dynamic replacement won't work there.
     styling: {
-        theme: ['light', 'top', 'wide'],
+        "theme": ["right", "bottom", "dark"],
     },
 
     // You can show a description in contextual consent overlays for store 
