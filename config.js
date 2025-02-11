@@ -371,18 +371,18 @@ var klaroConfig = {
                 /^_ga(_.*)?/ // we delete the Google Analytics cookies if the user declines its use
             ],
             purposes: ['marketing'],
-            onAccept: `
+            onAccept: 
                 // we grant analytics storage
                 gtag('consent', 'update', {
                     'analytics_storage': 'granted',
                 })
-            `,
-            onDecline: `
+            ,
+            onDecline: 
                 // we deny analytics storage
                 gtag('consent', 'update', {
                     'analytics_storage': 'denied',
                 })
-            `,
+            ,
         },
         {
             name: 'google-ads',
