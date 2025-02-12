@@ -326,33 +326,50 @@ var klaroConfig = {
             purposes: ['styling'],
         },*/
         {
-        name: 'googleAnalytics',
-        title: 'Google Analytics',
-        description: 'Used to analyze website traffic and user behavior.',
-        cookies: [
-            [/^_ga_.*$/, '/', '.lambojia.github.io'], //for the production version
-            ['_ga', '/', '.lambojia.github.io'],  
-        ],
-        callback: function(consent, service) {
+            name: 'google-analytics', // Unique name for your service
+            title: 'Google Analytics', // User-friendly title
+            description: 'We use Google Analytics to understand how our website is used and to improve your experience.', // Description for the user
+            type: 'tracking', // Important: Set type to 'tracking'
+            purposes: ['analytics'], // Define the purpose (you might have a custom purpose)
+            default: true, // Optional: Set to true if Google Analytics is enabled by default (GDPR considerations!)
+            required: false, //  GDPR: Set to true if consent is required for analytics.  Important!
+            cookies: [ // List the cookies used by Google Analytics. This helps users understand what they're consenting to.
+              {
+                name: '_ga',
+                description: 'Used to distinguish users.',
+                expiry: '2 years' // Or specify the actual expiry
+              },
+              {
+                name: '_gid',
+                description: 'Used to distinguish users.',
+                expiry: '1 day'
+              },
+              // ... other GA cookies
+            ],
+            onAccept: function() { // Function to execute when the user accepts Google Analytics
+              // Load the Google Analytics script.  Do this ONLY when consent is given!
+              (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+              (i[r].q=i[r].q||[]).push(arguments)};i[r].l=1*new Date();a=s.createElement(o),
+              m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+              })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-            console.log(
-                'User consent for service ' + service.name + ': consent=' + consent
-            );
+              // Initialize Google Analytics. Replace 'G-YOUR_GA_MEASUREMENT_ID' with your actual ID.
+              ga('create', 'G-22P3XV6H72', 'auto'); // Or your legacy UA ID
+              ga('send', 'pageview');
 
-            if (consent) {
-              window.gaConsent = true; // Set the flag to true when consent is given
-              gtag('config', 'G-22P3XV6H72'); // Ensure the config command is executed
-            } else {
-              window.gaConsent = false; // Set the flag to false when consent is withdrawn
-              window.gtag = function() { // Override gtag function
-                  if (window.gaConsent) {
-                      dataLayer.push(arguments);
-                  } else {
-                      console.log("Google Analytics disabled due to user consent.");
-                  }
-              };
+              // For gtag.js (more recent Google Analytics):
+              // window.dataLayer = window.dataLayer || [];
+              // function gtag(){dataLayer.push(arguments);}
+              // gtag('js', new Date());
+              // gtag('config', 'G-YOUR_GA_MEASUREMENT_ID');
+            },
+            onDecline: function() { // Function to execute when the user declines Google Analytics
+              // If necessary, implement any cleanup or disabling of tracking here.
+              // For example, you could remove any GA-related cookies if you have server-side logic to do so.
+              // It's important to respect the user's choice.
+              // Note:  Simply not loading the script is usually sufficient.
+              console.log("Google Analytics tracking is disabled.");
             }
-          }
         },
         {
             name: 'cloudflare',
