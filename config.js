@@ -170,6 +170,7 @@ var klaroConfig = {
 
     // This is a list of third-party services that Klaro will manage for you.
     services: [
+
     {
       name: 'google-analytics', // Unique name for your service
       title: 'Google Analytics', // User-friendly title
@@ -258,9 +259,10 @@ var klaroConfig = {
             g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
           })();
         }
-
+        
       },
-      {
+    },
+    {
       name: 'linkedin-insight-tag',
       title: 'LinkedIn Insight Tag',
       description: 'We use the LinkedIn Insight Tag to measure and optimize our LinkedIn advertising campaigns.', // User-friendly description
@@ -302,6 +304,7 @@ var klaroConfig = {
         }
 
       },
-    },     
+    },
+
   ],
 };
