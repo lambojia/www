@@ -331,7 +331,7 @@ var klaroConfig = {
         description: 'Used to analyze website traffic and user behavior.',
         cookies: [
             [/^_ga_.*$/, '/', '.lambojia.github.io'], //for the production version
-            '_ga',
+            ['_ga', '/', '.lambojia.github.io'],  
         ],
         callback: function(consent, service) {
 
