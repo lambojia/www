@@ -326,17 +326,12 @@ var klaroConfig = {
             purposes: ['styling'],
         },*/
         {
-            name: 'cloudflare',
-            title: 'Cloudflare',
-            purposes: ['security'],
-            required: true,
-        },
-        {
         name: 'googleAnalytics',
         title: 'Google Analytics',
         description: 'Used to analyze website traffic and user behavior.',
         cookies: [
             [/^_ga_.*$/, '/', '.lambojia.github.io'], //for the production version
+            [/^_ga$/, '/', '.lambojia.github.io']
         ],
         callback: function(consent, service) {
 
@@ -344,17 +339,27 @@ var klaroConfig = {
                 'User consent for service ' + service.name + ': consent=' + consent
             );
 
-            if(consent==true){
-                 gtag('config', 'G-22P3XV6H72'); // Ensure the config command is executed
-                _paq.push(['rememberCookieConsentGiven']);
+            if (consent) {
+              window.gaConsent = true; // Set the flag to true when consent is given
+              gtag('config', 'G-22P3XV6H72'); // Ensure the config command is executed
             } else {
-                _paq.push(['forgetCookieConsentGiven']);
+              window.gaConsent = false; // Set the flag to false when consent is withdrawn
+              window.gtag = function() { // Override gtag function
+                  if (window.gaConsent) {
+                      dataLayer.push(arguments);
+                  } else {
+                      console.log("Google Analytics disabled due to user consent.");
+                  }
+              };
             }
-
-            console.log(
-                'User consent for service ' + service.name + ': consent=' + consent
-            );
-        }
-      }
+          }
+        },
+        {
+            name: 'cloudflare',
+            title: 'Cloudflare',
+            purposes: ['security'],
+            required: true,
+        },
+        
     ],
 };
