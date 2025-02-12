@@ -216,7 +216,51 @@ var klaroConfig = {
               console.log("Google Analytics tracking is disabled.");
             }
         },
+        {
+        name: 'matomo',
+        title: 'Matomo Analytics',
+        description: 'We use Matomo to analyze website traffic and improve user experience.',
+        type: 'tracking',
+        purposes: ['analytics'], // Or your custom purposes
+        default: false, //  GDPR: Explicit consent is generally required!
+        required: true, // GDPR: Set to true if consent is required.  Important!
+        cookies: [ // List Matomo cookies.  Consult Matomo documentation for the latest.
+          {
+            name: '_pk_id.*', // Use a regex to catch all variations
+            description: 'Used to recognize visitors uniquely.',
+            expiry: '13 months'
+          },
+          {
+            name: '_pk_ses.*', // Use a regex to catch all variations
+            description: 'Used to store the visit information.',
+            expiry: '30 minutes'
+          },
+          // ... other Matomo cookies
+        ],
+        onAccept: function() {
+          console.log("why?");
+          var _paq = window._paq = window._paq || [];
+          /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+          _paq.push(['trackPageView']);
+          _paq.push(['enableLinkTracking']);
+          (function() {
+            var u="//matomo.alipyo.com/";
+            _paq.push(['setTrackerUrl', u+'matomo.php']);
+            _paq.push(['setSiteId', '1']);
+            var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+            g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+          })();
 
+        },
+        onDecline: function() {
+          // Handle decline (usually not much to do besides logging).
+          console.log("Matomo tracking is disabled.");
+
+          // Important for Matomo:  Consider removing Matomo cookies here if you have server-side logic to do so.
+          // Unlike GA, Matomo might set cookies even without JavaScript if you have server-side tracking.
+          // It's crucial to respect the user's choice.
+        }
+        },
       
         
     ],
