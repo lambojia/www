@@ -343,28 +343,23 @@ var klaroConfig = {
             required: true,
         },
         {
-        name: 'googleAnalytics', // Choose a descriptive name
-        title: 'Google Analytics', // User-friendly title
-        description: 'Used to analyze website traffic and user behavior.', // Explain why you use it
-        // You're using gtag.js directly, so you don't need the 'default' or 'html' properties here.
-        // Instead, use only the 'callback' property
+        name: 'googleAnalytics',
+        title: 'Google Analytics',
+        description: 'Used to analyze website traffic and user behavior.',
         callback: function(consent) {
           if (consent) {
-            // User has given consent.  gtag.js is already loaded, so just ensure it's active.
-            // No need to add the script again. Just make sure the config is in place.
+            window.gaConsent = true; // Set the flag to true when consent is given
+            gtag('config', 'G-22P3XV6H72'); // Ensure the config command is executed
           } else {
-            // User has withdrawn consent.  You should disable Google Analytics.
-            // For gtag.js, this means removing the 'config' command.  You can do this by setting a global variable and checking it in your gtag calls.
-            window.gaConsent = false; // Set a flag
-            // Modify your gtag function:
-            window.gtag = function() {
+            window.gaConsent = false; // Set the flag to false when consent is withdrawn
+            window.gtag = function() { // Override gtag function
                 if (window.gaConsent) {
                     dataLayer.push(arguments);
                 } else {
-                    // Do nothing or log a message
                     console.log("Google Analytics disabled due to user consent.");
                 }
             };
+          }
         }
       }
     ],
