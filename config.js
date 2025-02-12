@@ -181,7 +181,7 @@ var klaroConfig = {
       // GDPR: Set to true if consent is required for analytics.  Important!
       // If "required" is set to true, Klaro will not allow this service to
       // be disabled by the user.
-      required: false,
+      required: true,
       // If "optOut" is set to true, Klaro will load this service even before
       // the user gave explicit consent.
       // We recommend always leaving this "false".
