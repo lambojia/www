@@ -225,64 +225,6 @@ var klaroConfig = {
             default: true,
             purposes: ['marketing'],
         },
-        {
-            // Each service should have a unique (and short) name.
-            name: 'matomo',
-
-            // If "default" is set to true, the service will be enabled by default
-            // Overwrites global "default" setting.
-            // We recommend leaving this to "false" for services that collect
-            // personal information.
-            default: true,
-
-            // The title of your service as listed in the consent modal.
-            title: 'Matomo/Piwik',
-
-            // The purpose(s) of this service. Will be listed on the consent notice.
-            // Do not forget to add translations for all purposes you list here.
-            purposes: ['analytics'],
-
-            // A list of regex expressions or strings giving the names of
-            // cookies set by this service. If the user withdraws consent for a
-            // given service, Klaro will then automatically delete all matching
-            // cookies.
-            cookies: [
-                [/^_pk_.*$/, '/', 'lambojia.github.io'], //for the production version
-            ],
-
-            // An optional callback function that will be called each time
-            // the consent state for the service changes (true=consented). Passes
-            // the `service` config as the second parameter as well.
-            callback: function(consent, service) {
-                // This is an example callback function.
-                console.log(
-                    'User consent for service ' + service.name + ': consent=' + consent
-                );
-                // To be used in conjunction with Matomo 'requireCookieConsent' Feature, Matomo 3.14.0 or newer
-                // For further Information see https://matomo.org/faq/new-to-piwik/how-can-i-still-track-a-visitor-without-cookies-even-if-they-decline-the-cookie-consent/
-                
-                if(consent==true){
-                    _paq.push(['rememberCookieConsentGiven']);
-                } else {
-                    _paq.push(['forgetCookieConsentGiven']);
-                }
-                
-            },
-
-            // If "required" is set to true, Klaro will not allow this service to
-            // be disabled by the user.
-            required: false,
-
-            // If "optOut" is set to true, Klaro will load this service even before
-            // the user gave explicit consent.
-            // We recommend always leaving this "false".
-            optOut: false,
-
-            // If "onlyOnce" is set to true, the service will only be executed
-            // once regardless how often the user toggles it on and off.
-            onlyOnce: true,
-        },
-
         // The services will appear in the modal in the same order as defined here.
         {
             name: 'inlineTracker',
@@ -372,11 +314,55 @@ var klaroConfig = {
             }
         },
         {
-            name: 'cloudflare',
-            title: 'Cloudflare',
-            purposes: ['security'],
-            required: true,
+        name: 'matomo',
+        title: 'Matomo Analytics',
+        description: 'We use Matomo to analyze website traffic and improve user experience.',
+        type: 'tracking',
+        purposes: ['analytics'], // Or your custom purposes
+        default: false, //  GDPR: Explicit consent is generally required!
+        required: true, // GDPR: Set to true if consent is required.  Important!
+        cookies: [ // List Matomo cookies.  Consult Matomo documentation for the latest.
+          {
+            name: '_pk_id.*', // Use a regex to catch all variations
+            description: 'Used to recognize visitors uniquely.',
+            expiry: '13 months'
+          },
+          {
+            name: '_pk_ses.*', // Use a regex to catch all variations
+            description: 'Used to store the visit information.',
+            expiry: '30 minutes'
+          },
+          // ... other Matomo cookies
+        ],
+        onAccept: function() {
+          var _paq = window._paq = window._paq || [];
+          /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+          _paq.push(['trackPageView']);
+          _paq.push(['enableLinkTracking']);
+          (function() {
+            var u="//matomo.alipyo.com/";
+            _paq.push(['setTrackerUrl', u+'matomo.php']);
+            _paq.push(['setSiteId', '1']);
+            var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+            g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+          })();
+
         },
+        onDecline: function() {
+          // Handle decline (usually not much to do besides logging).
+          console.log("Matomo tracking is disabled.");
+
+          // Important for Matomo:  Consider removing Matomo cookies here if you have server-side logic to do so.
+          // Unlike GA, Matomo might set cookies even without JavaScript if you have server-side tracking.
+          // It's crucial to respect the user's choice.
+        }
+      },
+      {
+          name: 'cloudflare',
+          title: 'Cloudflare',
+          purposes: ['security'],
+          required: true,
+      },
         
     ],
 };
