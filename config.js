@@ -215,59 +215,6 @@ var klaroConfig = {
     // This is a list of third-party services that Klaro will manage for you.
     services: [
         {
-            name: 'twitter',
-            default: false,
-            contextualConsentOnly: true,
-            purposes: ['marketing'],
-        },
-        {
-            name: 'youtube',
-            default: true,
-            purposes: ['marketing'],
-        },
-        // The services will appear in the modal in the same order as defined here.
-        {
-            name: 'inlineTracker',
-            title: 'Inline Tracker',
-            purposes: ['analytics'],
-            cookies: ['inline-tracker'],
-            optOut: false,
-        },
-        {
-            name: 'externalTracker',
-            title: 'External Tracker',
-            purposes: ['analytics', 'security'],
-            cookies: ['external-tracker'],
-        },
-        {
-            name: 'intercom',
-            title: 'Intercom',
-            default: true,
-            purposes: ['livechat'],
-        },
-        {
-            name: 'mouseflow',
-            title: 'Mouseflow',
-            purposes: ['analytics'],
-        },
-        {
-            name: 'adsense',
-            // if you omit the title here Klaro will try to look it up in the
-            // translations
-            //title: 'Google AdSense',
-            purposes: ['advertising'],
-        },
-        {
-            name: 'camera',
-            title: 'Surveillance Camera',
-            purposes: ['security'],
-        },
-/*        {
-            name: 'googleFonts',
-            title: 'Google Fonts',
-            purposes: ['styling'],
-        },*/
-        {
             name: 'google-analytics', // Unique name for your service
             title: 'Google Analytics', // User-friendly title
             description: 'We use Google Analytics to understand how our website is used and to improve your experience.', // Description for the user
