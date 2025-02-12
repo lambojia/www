@@ -346,7 +346,7 @@ var klaroConfig = {
         name: 'googleAnalytics',
         title: 'Google Analytics',
         description: 'Used to analyze website traffic and user behavior.',
-        callback: function(consent) {
+        callback: function(consent, service) {
 
             console.log(
                 'User consent for service ' + service.name + ': consent=' + consent
