@@ -294,4 +294,10 @@ var klaroConfig = {
     },
 
   ],
+
+  callback: function(consent, service) {
+      console.log(
+          'Kamote. User consent for service ' + service.name + ': consent=' + consent
+      );
+  },
 };
