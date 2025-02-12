@@ -16,7 +16,7 @@ var klaroConfig = {
     // supporting IE9-10 (which you probably shouldn't) you need to use Klaro
     // with an external stylesheet as the dynamic replacement won't work there.
     styling: {
-        "theme": ["right", "bottom", "dark"],
+        "theme": ["left", "bottom", "dark"],
     },
 
     // You can show a description in contextual consent overlays for store 
@@ -347,7 +347,7 @@ var klaroConfig = {
         title: 'Google Analytics',
         description: 'Used to analyze website traffic and user behavior.',
         callback: function(consent) {
-            
+
             console.log(
                 'User consent for service ' + service.name + ': consent=' + consent
             );
