@@ -190,17 +190,12 @@ var klaroConfig = {
       // once regardless how often the user toggles it on and off.
       onlyOnce: true,
       cookies: [ // List the cookies used by Google Analytics. This helps users understand what they're consenting to.
-        {
-          name: '_ga',
-          description: 'Used to distinguish users.',
-          expiry: '2 years' // Or specify the actual expiry
-        },
-        {
-          name: '_gid',
-          description: 'Used to distinguish users.',
-          expiry: '1 day'
-        },
-        // ... other GA cookies
+        '_ga',
+        '_gali',
+        '_gid',
+        '_gat',
+        /^_ga_.*$/,
+        /^_gat_gtag_.*$/
       ],
       callback: function(consent, service) {
 
@@ -259,7 +254,7 @@ var klaroConfig = {
             g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
           })();
         }
-        
+
       },
     },
     {
