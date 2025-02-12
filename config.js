@@ -170,60 +170,138 @@ var klaroConfig = {
 
     // This is a list of third-party services that Klaro will manage for you.
     services: [
+    {
+      name: 'google-analytics', // Unique name for your service
+      title: 'Google Analytics', // User-friendly title
+      description: 'We use Google Analytics to understand how our website is used and to improve your experience.', // Description for the user
+      type: 'tracking', // Important: Set type to 'tracking'
+      purposes: ['analytics'], // Define the purpose (you might have a custom purpose)
+      default: true, // Optional: Set to true if Google Analytics is enabled by default (GDPR considerations!)
+      // GDPR: Set to true if consent is required for analytics.  Important!
+      // If "required" is set to true, Klaro will not allow this service to
+      // be disabled by the user.
+      required: false,
+      // If "optOut" is set to true, Klaro will load this service even before
+      // the user gave explicit consent.
+      // We recommend always leaving this "false".
+      optOut: false,
+      // If "onlyOnce" is set to true, the service will only be executed
+      // once regardless how often the user toggles it on and off.
+      onlyOnce: true,
+      cookies: [ // List the cookies used by Google Analytics. This helps users understand what they're consenting to.
         {
-            name: 'google-analytics', // Unique name for your service
-            title: 'Google Analytics', // User-friendly title
-            description: 'We use Google Analytics to understand how our website is used and to improve your experience.', // Description for the user
-            type: 'tracking', // Important: Set type to 'tracking'
-            purposes: ['analytics'], // Define the purpose (you might have a custom purpose)
-            default: true, // Optional: Set to true if Google Analytics is enabled by default (GDPR considerations!)
-            required: false, //  GDPR: Set to true if consent is required for analytics.  Important!
-            cookies: [ // List the cookies used by Google Analytics. This helps users understand what they're consenting to.
-              {
-                name: '_ga',
-                description: 'Used to distinguish users.',
-                expiry: '2 years' // Or specify the actual expiry
-              },
-              {
-                name: '_gid',
-                description: 'Used to distinguish users.',
-                expiry: '1 day'
-              },
-              // ... other GA cookies
-            ],
-            callback: function(consent, service) {
-              // This is an example callback function.
-              console.log(
-                  'User consent for service ' + service.name + ': consent=' + consent
-              );
-
-              if(consent==true){
-                  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-                  (i[r].q=i[r].q||[]).push(arguments)};i[r].l=1*new Date();a=s.createElement(o),
-                  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-                  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-                  // Initialize Google Analytics. Replace 'G-YOUR_GA_MEASUREMENT_ID' with your actual ID.
-                  ga('create', 'G-22P3XV6H72', 'auto'); // Or your legacy UA ID
-                  ga('send', 'pageview');
-              }
-            },
-
-            // If "required" is set to true, Klaro will not allow this service to
-            // be disabled by the user.
-            required: false,
-
-            // If "optOut" is set to true, Klaro will load this service even before
-            // the user gave explicit consent.
-            // We recommend always leaving this "false".
-            optOut: false,
-
-            // If "onlyOnce" is set to true, the service will only be executed
-            // once regardless how often the user toggles it on and off.
-            onlyOnce: true,
+          name: '_ga',
+          description: 'Used to distinguish users.',
+          expiry: '2 years' // Or specify the actual expiry
         },
-        
-      
-        
-    ],
+        {
+          name: '_gid',
+          description: 'Used to distinguish users.',
+          expiry: '1 day'
+        },
+        // ... other GA cookies
+      ],
+      callback: function(consent, service) {
+
+        console.log('User consent for service ' + service.name + ': consent=' + consent);
+
+        if(consent==true){
+          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)};i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+          })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+          // Initialize Google Analytics. Replace 'G-YOUR_GA_MEASUREMENT_ID' with your actual ID.
+          ga('create', 'G-22P3XV6H72', 'auto'); // Or your legacy UA ID
+          ga('send', 'pageview');
+        }
+
+      },
+    },
+    {
+      name: 'matomo',
+      title: 'Matomo Analytics',
+      description: 'We use Matomo to analyze website traffic and improve user experience.',
+      type: 'tracking',
+      purposes: ['analytics'], // Or your custom purposes
+      default: true,
+      required: false,
+      optOut: false,
+      onlyOnce: true,
+      cookies: [ // List Matomo cookies.  Consult Matomo documentation for the latest.
+        {
+          name: '_pk_id.*', // Use a regex to catch all variations
+          description: 'Used to recognize visitors uniquely.',
+          expiry: '13 months'
+        },
+        {
+          name: '_pk_ses.*', // Use a regex to catch all variations
+          description: 'Used to store the visit information.',
+          expiry: '30 minutes'
+        },
+        // ... other Matomo cookies
+      ],
+      callback: function(consent, service) {
+
+        console.log('User consent for service ' + service.name + ': consent=' + consent);
+
+        if(consent==true){
+          var _paq = window._paq = window._paq || [];
+          /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+          _paq.push(['trackPageView']);
+          _paq.push(['enableLinkTracking']);
+          (function() {
+            var u="//matomo.alipyo.com/";
+            _paq.push(['setTrackerUrl', u+'matomo.php']);
+            _paq.push(['setSiteId', '1']);
+            var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+            g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+          })();
+        }
+
+      },
+      {
+      name: 'linkedin-insight-tag',
+      title: 'LinkedIn Insight Tag',
+      description: 'We use the LinkedIn Insight Tag to measure and optimize our LinkedIn advertising campaigns.', // User-friendly description
+      type: 'marketing', // Or 'advertising', choose the appropriate type
+      purposes: ['advertising'], // Define the purpose (you might have a custom purpose)
+      default: true,
+      required: false,
+      optOut: false,
+      onlyOnce: true,
+      cookies: [ // List the cookies used by LinkedIn Insight Tag. This is crucial for transparency.
+        {
+          name: 'li_gc', // Example.  LinkedIn may use others. Consult their docs.
+          description: 'Used for ad targeting and measurement.',
+          expiry: '2 years' // Or specify the actual expiry
+        },
+        // ... other LinkedIn cookies.  Be sure to check LinkedIn's documentation.
+      ],
+      callback: function(consent, service) {
+
+        console.log('User consent for service ' + service.name + ': consent=' + consent);
+
+        if(consent==true){
+          // Load the LinkedIn Insight Tag script. Do this ONLY when consent is given!
+          _linkedin_partner_id = "6945636"; // Replace with your Partner ID
+          window._linkedin_data_partner = window._linkedin_data_partner || [];
+          window._linkedin_data_partner.push({
+            'id': _linkedin_partner_id
+          });
+
+          (function(l) {
+            if (!l){window.lintracker = function(a,b){window._linkedin_data_partner.push(arguments);}}
+            var s = document.createElement('script');
+            s.type = 'text/javascript';
+            s.async = true;
+            s.src = 'https://snap.licdn.com/li.lms-analytics/insight.min.js';
+            var h = document.getElementsByTagName('script')[0];
+            h.parentNode.insertBefore(s, h);
+          })(window._linkedin_data_partner);
+        }
+
+      },
+    },     
+  ],
 };
