@@ -341,26 +341,6 @@ var klaroConfig = {
             title: 'Cloudflare',
             purposes: ['security'],
             required: true,
-        },
-        {
-        name: 'googleAnalytics',
-        title: 'Google Analytics',
-        description: 'Used to analyze website traffic and user behavior.',
-        callback: function(consent) {
-          if (consent) {
-            window.gaConsent = true; // Set the flag to true when consent is given
-            gtag('config', 'G-22P3XV6H72'); // Ensure the config command is executed
-          } else {
-            window.gaConsent = false; // Set the flag to false when consent is withdrawn
-            window.gtag = function() { // Override gtag function
-                if (window.gaConsent) {
-                    dataLayer.push(arguments);
-                } else {
-                    console.log("Google Analytics disabled due to user consent.");
-                }
-            };
-          }
         }
-      }
     ],
 };
