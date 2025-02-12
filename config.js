@@ -122,50 +122,6 @@ var klaroConfig = {
         },
         // If you erase the "consentModal" translations, Klaro will use the
         // bundled translations.
-        de: {
-            privacyPolicyUrl: '/#datenschutz',
-            consentModal: {
-                description:
-                    'Hier können Sie einsehen und anpassen, welche Information wir über Sie sammeln. Einträge die als "Beispiel" gekennzeichnet sind dienen lediglich zu Demonstrationszwecken und werden nicht wirklich verwendet.',
-            },
-            inlineTracker: {
-                description: 'Beispiel für ein Inline-Tracking Skript',
-            },
-            externalTracker: {
-                description: 'Beispiel für ein externes Tracking Skript',
-            },
-            adsense: {
-                description: 'Anzeigen von Werbeanzeigen (Beispiel)',
-                title: 'Google AdSense Werbezeugs',
-            },
-            matomo: {
-                description: 'Sammeln von Besucherstatistiken',
-            },
-            camera: {
-                description:
-                    'Eine Überwachungskamera (nur ein Beispiel zu IMG-Tags)',
-            },
-            cloudflare: {
-                description: 'Schutz gegen DDoS-Angriffe',
-            },
-            intercom: {
-                description:
-                    'Chat Widget & Sammeln von Besucherstatistiken (nur ein Beispiel)',
-            },
-            mouseflow: {
-                description: 'Echtzeit-Benutzeranalyse (nur ein Beispiel)',
-            },
-            googleFonts: {
-                description: 'Web-Schriftarten von Google gehostet',
-            },
-            purposes: {
-                analytics: 'Besucher-Statistiken',
-                security: 'Sicherheit',
-                livechat: 'Live Chat',
-                advertising: 'Anzeigen von Werbung',
-                styling: 'Styling',
-            },
-        },
         en: {
             consentModal: {
                 title: '<u>test</u>',
@@ -303,50 +259,50 @@ var klaroConfig = {
           // Unlike GA, Matomo might set cookies even without JavaScript if you have server-side tracking.
           // It's crucial to respect the user's choice.
         }
-      },
-      {
-      name: 'linkedin-insight-tag',
-      title: 'LinkedIn Insight Tag',
-      description: 'We use the LinkedIn Insight Tag to measure and optimize our LinkedIn advertising campaigns.', // User-friendly description
-      type: 'marketing', // Or 'advertising', choose the appropriate type
-      purposes: ['advertising'], // Define the purpose (you might have a custom purpose)
-      default: false, // GDPR: Explicit consent is generally required!
-      required: true, // GDPR: Set to true if consent is required. Important!
-      cookies: [ // List the cookies used by LinkedIn Insight Tag. This is crucial for transparency.
-        {
-          name: 'li_gc', // Example.  LinkedIn may use others. Consult their docs.
-          description: 'Used for ad targeting and measurement.',
-          expiry: '2 years' // Or specify the actual expiry
         },
-        // ... other LinkedIn cookies.  Be sure to check LinkedIn's documentation.
-      ],
-      onAccept: function() {
-        // Load the LinkedIn Insight Tag script. Do this ONLY when consent is given!
-        _linkedin_partner_id = "6945636"; // Replace with your Partner ID
-        window._linkedin_data_partner = window._linkedin_data_partner || [];
-        window._linkedin_data_partner.push({
-          'id': _linkedin_partner_id
-        });
+        {
+        name: 'linkedin-insight-tag',
+        title: 'LinkedIn Insight Tag',
+        description: 'We use the LinkedIn Insight Tag to measure and optimize our LinkedIn advertising campaigns.', // User-friendly description
+        type: 'marketing', // Or 'advertising', choose the appropriate type
+        purposes: ['advertising'], // Define the purpose (you might have a custom purpose)
+        default: false, // GDPR: Explicit consent is generally required!
+        required: true, // GDPR: Set to true if consent is required. Important!
+        cookies: [ // List the cookies used by LinkedIn Insight Tag. This is crucial for transparency.
+          {
+            name: 'li_gc', // Example.  LinkedIn may use others. Consult their docs.
+            description: 'Used for ad targeting and measurement.',
+            expiry: '2 years' // Or specify the actual expiry
+          },
+          // ... other LinkedIn cookies.  Be sure to check LinkedIn's documentation.
+        ],
+        onAccept: function() {
+          // Load the LinkedIn Insight Tag script. Do this ONLY when consent is given!
+          _linkedin_partner_id = "6945636"; // Replace with your Partner ID
+          window._linkedin_data_partner = window._linkedin_data_partner || [];
+          window._linkedin_data_partner.push({
+            'id': _linkedin_partner_id
+          });
 
-        (function(l) {
-          if (!l){window.lintracker = function(a,b){window._linkedin_data_partner.push(arguments);}}
-          var s = document.createElement('script');
-          s.type = 'text/javascript';
-          s.async = true;
-          s.src = 'https://snap.licdn.com/li.lms-analytics/insight.min.js';
-          var h = document.getElementsByTagName('script')[0];
-          h.parentNode.insertBefore(s, h);
-        })(window._linkedin_data_partner);
+          (function(l) {
+            if (!l){window.lintracker = function(a,b){window._linkedin_data_partner.push(arguments);}}
+            var s = document.createElement('script');
+            s.type = 'text/javascript';
+            s.async = true;
+            s.src = 'https://snap.licdn.com/li.lms-analytics/insight.min.js';
+            var h = document.getElementsByTagName('script')[0];
+            h.parentNode.insertBefore(s, h);
+          })(window._linkedin_data_partner);
 
-      },
-      onDecline: function() {
-        // Handle decline.  Usually, no specific action is needed other than logging.
-        console.log("LinkedIn Insight Tag is disabled.");
+        },
+        onDecline: function() {
+          // Handle decline.  Usually, no specific action is needed other than logging.
+          console.log("LinkedIn Insight Tag is disabled.");
 
-        // If you have server-side code that sets LinkedIn cookies, you would handle deletion here.
-        // It's vital to respect the user's choice.
-      }
-      },
+          // If you have server-side code that sets LinkedIn cookies, you would handle deletion here.
+          // It's vital to respect the user's choice.
+        }
+        },
         
     ],
 };
