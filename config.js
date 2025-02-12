@@ -195,7 +195,7 @@ var klaroConfig = {
         '_gid',
         '_gat',
         /^_ga_.*$/,
-        /^_gat_gtag_.*$/
+        /^_gat_gtag_.*$/,
       ],
       callback: function(consent, service) {
 
@@ -225,17 +225,11 @@ var klaroConfig = {
       optOut: false,
       onlyOnce: true,
       cookies: [ // List Matomo cookies.  Consult Matomo documentation for the latest.
-        {
-          name: '_pk_id.*', // Use a regex to catch all variations
-          description: 'Used to recognize visitors uniquely.',
-          expiry: '13 months'
-        },
-        {
-          name: '_pk_ses.*', // Use a regex to catch all variations
-          description: 'Used to store the visit information.',
-          expiry: '30 minutes'
-        },
-        // ... other Matomo cookies
+        /^_pk_id.*$/,
+        /^_pk_ses.*$/,
+        /^_pk_ref.*$/,
+        /^_pk_testcookie.*$/,
+        'piwik_ignore',
       ],
       callback: function(consent, service) {
 
@@ -268,12 +262,10 @@ var klaroConfig = {
       optOut: false,
       onlyOnce: true,
       cookies: [ // List the cookies used by LinkedIn Insight Tag. This is crucial for transparency.
-        {
-          name: 'li_gc', // Example.  LinkedIn may use others. Consult their docs.
-          description: 'Used for ad targeting and measurement.',
-          expiry: '2 years' // Or specify the actual expiry
-        },
-        // ... other LinkedIn cookies.  Be sure to check LinkedIn's documentation.
+        'bcookie',
+        'li_fat_id',
+        'li_gc',
+        'lidc',
       ],
       callback: function(consent, service) {
 
