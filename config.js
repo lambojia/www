@@ -247,18 +247,7 @@ var klaroConfig = {
             // given service, Klaro will then automatically delete all matching
             // cookies.
             cookies: [
-                // you can also explicitly provide a path and a domain for
-                // a given cookie. This is necessary if you have services that
-                // set cookies for a path that is not "/" or a domain that
-                // is not the current domain. If you do not set these values
-                // properly, the cookie can't be deleted by Klaro
-                // (there is no way to access the path or domain of a cookie in JS)
-                // Notice that it is not possible to delete cookies that were set
-                // on a third-party domain! See the note at mdn:
-                // https://developer.mozilla.org/en-US/docs/Web/API/Document/cookie#new-cookie_domain
-                [/^_pk_.*$/, '/', 'klaro.kiprotect.com'], //for the production version
-                [/^_pk_.*$/, '/', 'localhost'], //for the local version
-                'piwik_ignore',
+                [/^_pk_.*$/, '/', 'lambojia.github.io'], //for the production version
             ],
 
             // An optional callback function that will be called each time
@@ -346,25 +335,25 @@ var klaroConfig = {
         name: 'googleAnalytics',
         title: 'Google Analytics',
         description: 'Used to analyze website traffic and user behavior.',
+        cookies: [
+            [/^_ga_.*$/, '/', '.lambojia.github.io'], //for the production version
+        ],
         callback: function(consent, service) {
 
             console.log(
                 'User consent for service ' + service.name + ': consent=' + consent
             );
 
-          if (consent) {
-            window.gaConsent = true; // Set the flag to true when consent is given
-            gtag('config', 'G-22P3XV6H72'); // Ensure the config command is executed
-          } else {
-            window.gaConsent = false; // Set the flag to false when consent is withdrawn
-            window.gtag = function() { // Override gtag function
-                if (window.gaConsent) {
-                    dataLayer.push(arguments);
-                } else {
-                    console.log("Google Analytics disabled due to user consent.");
-                }
-            };
-          }
+            if(consent==true){
+                 gtag('config', 'G-22P3XV6H72'); // Ensure the config command is executed
+                _paq.push(['rememberCookieConsentGiven']);
+            } else {
+                _paq.push(['forgetCookieConsentGiven']);
+            }
+
+            console.log(
+                'User consent for service ' + service.name + ': consent=' + consent
+            );
         }
       }
     ],
