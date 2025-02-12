@@ -8,6 +8,15 @@
     <link rel="stylesheet" href="style.css">  
     <script defer type="text/javascript" src="config.js"></script>
     <script defer type="text/javascript" src="klaro.js"></script>
+    <script defer type="text/javascript">
+    let manager = klaro.getManager() // get the consent manager
+    manager.watch({
+      update: function(manager, eventType, data){
+         // your logic here...
+        console.log(data);
+      }
+    }) //
+    </script>
 </head>
 
 <body>
