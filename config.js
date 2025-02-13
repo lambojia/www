@@ -2,7 +2,7 @@
 // You can change this by specifying the "data-config" attribute on your
 // script take, e.g. like this:
 // <script src="klaro.js" data-config="myConfigVariableName" />
-var klaroConfig = {
+var kConfig = {
     // With the 0.7.0 release we introduce a 'version' paramter that will make
     // it easier for us to keep configuration files backwards-compatible in the future.
     version: 1,

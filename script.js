@@ -1,14 +1,9 @@
-const myButton = document.getElementById('myButton');
-const outputDiv = document.getElementById('output');
 
-myButton.addEventListener('click', () => {
-    outputDiv.textContent = "Button clicked!";
-});
+klaro.show(kConfig, true);
 
-myButton.addEventListener('mouseover', () => {
-    myButton.style.backgroundColor = '#004085';
-});
-
-myButton.addEventListener('mouseout', () => {
-    myButton.style.backgroundColor = '#007bff';
+klaro.getManager(kConfig).watch({
+    update: function(obj, name, data) {
+        if (name === 'saveConsents')
+            console.log(data);
+    }
 });
