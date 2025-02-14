@@ -43,6 +43,23 @@
     <script src="script.js" defer></script> 
     <script src="https://accounts.google.com/gsi/client" async defer></script>
 
+    <script>
+      function handleCredentialResponse(response) {
+        console.log("Encoded JWT ID token: " + response.credential);
+
+        // Send the token to your backend for verification
+        fetch('/tokensignin', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ token: response.credential })
+        })
+        .then(response => { /* ... handle response ... */ })
+        .catch(error => { /* ... handle error ... */ });
+      }
+    </script>
+
 </body>
 
 </html>
