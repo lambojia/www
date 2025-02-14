@@ -74,7 +74,7 @@
         .then(data => {
           console.log('Success:', data);
           if (data.success) {
-             localStorage.setItem('google_token', response.credential); // Or data.token if your server returns it
+             localStorage.setItem('google_token', idToken); // Or data.token if your server returns it
              console.log(data);
             //window.location.href = "/your-protected-page";
           } else {
