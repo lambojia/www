@@ -19,13 +19,12 @@
     <main>
         <div class="container">
 
-        <div id="g_id_onload"
-             data-client_id="540754736098-ahrealgn91kaajougd6nb38u8bphnlg8.apps.googleusercontent.com"
-             data-context="signin"
-             data-ux_mode="popup"
-             data-callback="onSignIn"
-             data-auto_prompt="false">
-        </div>
+        <meta name="google-signin-client_id" content="540754736098-ahrealgn91kaajougd6nb38u8bphnlg8.apps.googleusercontent.com">
+
+        <div    id="g_id_onload"
+                data-client_id="YOUR_CLIENT_ID.apps.googleusercontent.com"
+                data-login_uri="http://localhost:3000/callback"
+                data-callback="onSignIn">  </div>
         
         <!-- data-login_uri="http://localhost:3000/callback" -->
 
@@ -50,30 +49,33 @@
 
     <script>
 
-    function onSignIn(googleUser) {  // Note: googleUser is *not* the credential response here.
-      // Get the auth response (which contains the ID token)
-      const authResponse = googleUser.getAuthResponse();
-      const idToken = authResponse.id_token;
+    function onSignIn(response) { // Correct parameter: response, not googleUser
+      console.log("Response:", response); // Log the response for inspection
+      const idToken = response.credential; // Access credential directly
 
-      fetch('https://your-website.com/your-login-endpoint', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ token: idToken })
-      })
-      .then(response => response.json())
-      .then(data => {
-        console.log('Success:', data);
-        if (data.success) {
-          window.location.href = "/your-protected-page";
-        } else {
-          console.error("Login Error:", data.message);
-        }
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
+      if (idToken) {  // Check if token exists
+        fetch('http://localhost:3000/callback', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ token: idToken })
+        })
+        .then(response => response.json())
+        .then(data => {
+          console.log('Success:', data);
+          if (data.success) {
+            window.location.href = "/your-protected-page";
+          } else {
+            console.error("Login Error:", data.message);
+          }
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+        });
+      } else {
+        console.error("No ID token received.");
+      }
     }
 
     // No need for google.accounts.id.initialize or google.accounts.id.renderButton here
