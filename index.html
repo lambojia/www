@@ -50,17 +50,19 @@
 
     window.addEventListener('DOMContentLoaded', () => {
 
-        const token = localStorage.getItem('google_token') || sessionStorage.getItem('google_token'); // Check both
-        
-        console.log(token);
+        const idToken = localStorage.getItem('google_token') || sessionStorage.getItem('google_token'); // Check both
 
+        if (token) {
+          verifyToken(idToken);
+        } else {
+          // No token found, user is not logged in.
+          console.log("No token found on page load.");
+          // ... (Display login button, etc.)
+        }
     });
 
-    function onSignIn(response) { // Correct parameter: response, not googleUser
-      console.log("Response:", response); // Log the response for inspection
-      const idToken = response.credential; // Access credential directly
+    function verifyToken(idToken) {
 
-      if (idToken) {  // Check if token exists
         fetch('http://localhost:3000/callback', {
           method: 'POST',
           headers: {
@@ -72,17 +74,28 @@
         .then(data => {
           console.log('Success:', data);
           if (data.success) {
-
              localStorage.setItem('google_token', response.credential); // Or data.token if your server returns it
-
+             console.log(data);
             //window.location.href = "/your-protected-page";
           } else {
+            localStorage.removeItem('google_token');
+            sessionStorage.removeItem('google_token');
             console.error("Login Error:", data.message);
           }
         })
         .catch((error) => {
+          localStorage.removeItem('google_token');
+          sessionStorage.removeItem('google_token');
           console.error('Error:', error);
         });
+    }
+
+    function onSignIn(response) { // Correct parameter: response, not googleUser
+
+      const idToken = response.credential; // Access credential directly
+
+      if (idToken) {  // Check if token exists
+        verifyToken(idToken);
       } else {
         console.error("No ID token received.");
       }
