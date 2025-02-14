@@ -52,7 +52,7 @@
 
         const idToken = localStorage.getItem('google_token') || sessionStorage.getItem('google_token'); // Check both
 
-        if (token) {
+        if (idToken) {
           verifyToken(idToken);
         } else {
           // No token found, user is not logged in.
