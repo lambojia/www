@@ -8,7 +8,17 @@
     <link rel="stylesheet" href="style.css">  
     <script defer type="text/javascript" src="config.js"></script>
     <script defer type="text/javascript" src="klaro.js"></script>
-</head>
+
+    <script type="text/javascript">
+    klaro.show(kConfig, true);
+    klaro.getManager(kConfig).watch({
+    update: function(obj, name, data) {
+        if (name === 'saveConsents')
+            console.log(data);
+    }
+    });
+    </script>
+    
 
 <body>
 
@@ -46,43 +56,7 @@
     <script src="script.js" defer></script> 
     <script src="https://accounts.google.com/gsi/client" async defer></script>
 
-    <script>
 
-    function onSignIn(response) { // Correct parameter: response, not googleUser
-      console.log("Response:", response); // Log the response for inspection
-      const idToken = response.credential; // Access credential directly
-
-      if (idToken) {  // Check if token exists
-        fetch('http://localhost:3000/callback', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ token: idToken })
-        })
-        .then(response => response.json())
-        .then(data => {
-          console.log('Success:', data);
-          if (data.success) {
-            
-             localStorage.setItem('google_token', response.credential); // Or data.token if your server returns it
-
-            //window.location.href = "/your-protected-page";
-          } else {
-            console.error("Login Error:", data.message);
-          }
-        })
-        .catch((error) => {
-          console.error('Error:', error);
-        });
-      } else {
-        console.error("No ID token received.");
-      }
-    }
-
-    // No need for google.accounts.id.initialize or google.accounts.id.renderButton here
-    // as the data-callback and data-client_id in the g_id_onload div handles it.
-    </script>
 
 </body>
 
