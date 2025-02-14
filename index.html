@@ -21,8 +21,9 @@
 
         <meta name="google-signin-client_id" content="540754736098-ahrealgn91kaajougd6nb38u8bphnlg8.apps.googleusercontent.com">
 
-        <div id="signInButtonContainer">
-        </div>
+        <div  id="g_id_onload"
+              data-client_id="540754736098-ahrealgn91kaajougd6nb38u8bphnlg8.apps.googleusercontent.com"
+              data-callback="onSignIn">  </div>
         
         <!-- data-login_uri="http://localhost:3000/callback" -->
 
@@ -51,7 +52,7 @@
 
         const idToken = localStorage.getItem('google_token') || sessionStorage.getItem('google_token'); // Check both
 
-        if (idToken) {
+        if (token) {
           verifyToken(idToken);
         } else {
           // No token found, user is not logged in.
@@ -99,40 +100,6 @@
         console.error("No ID token received.");
       }
     }
-
-    async function loadGoogleSignIn() {
-
-      try {
-        await google.accounts.id.initialize({
-          client_id: '540754736098-ahrealgn91kaajougd6nb38u8bphnlg8.apps.googleusercontent.com',
-          callback: onSignIn // Your callback function
-        });
-
-        // Check if the user is already signed in (using the new library's method):
-        const user = google.accounts.id.getAuthInstance().currentUser.get(); // Get the current user
-        if (user) {
-            onSignIn(user); // Handle the signed-in user
-        } else {
-            // Create the sign-in button
-            const signInButton = document.createElement('div');
-            signInButton.id = 'googleSignInButton';
-            document.getElementById('signInButtonContainer').appendChild(signInButton);
-
-            google.accounts.id.renderButton(signInButton, {
-              theme: "dark", // Customize the theme
-              size: "large", // Customize the size
-              type: "standard", // Customize the type
-              shape: "rectangular", // Customize the shape
-              text: "signin_with", // Customize the text
-              logo_alignment: "left", // Customize the logo alignment
-            });
-        }
-      } catch (error) {
-        console.error("Error initializing Google Sign-In:", error);
-      }
-    }
-
-    window.onload = loadGoogleSignIn;
 
     // No need for google.accounts.id.initialize or google.accounts.id.renderButton here
     // as the data-callback and data-client_id in the g_id_onload div handles it.
