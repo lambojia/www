@@ -20,20 +20,13 @@
         <div class="container">
             <p>This is a simple webpage with a header and footer.</p>
 
-            <meta name="google-signin-client_id" content="540754736098-ahrealgn91kaajougd6nb38u8bphnlg8.apps.googleusercontent.com">
+            <div id="g_id_onload"
+                 data-client_id="540754736098-ahrealgn91kaajougd6nb38u8bphnlg8.apps.googleusercontent.com"  data-context="signin"
+                 data-ux_mode="popup"  data-login_uri="https://identity.alipyo.com/callback"  data-auto_prompt="false">  </div>
 
-            <div class="g-signin2" data-onsuccess="onSignIn"></div>
+            <div class="g_id_signin" data-type="standard" data-size="large" data-theme="outline" data-text="signin_with" data-shape="rectangular"></div>
 
-            <a href="#" onclick="signOut();">Sign out</a>
-            <script>
-              function signOut() {
-                var auth2 = gapi.auth2.getAuthInstance();
-                auth2.signOut().then(function () {
-                  console.log('User signed out.');
-                });
-              }
-            </script>
-            
+            <div id="output"></div>
         </div>
     </main>
 
@@ -42,17 +35,7 @@
     </footer>
 
     <script src="script.js" defer></script> 
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
-    
-    <script type="text/javascript">
-    function onSignIn(googleUser) {
-      var profile = googleUser.getBasicProfile();
-      console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-      console.log('Name: ' + profile.getName());
-      console.log('Image URL: ' + profile.getImageUrl());
-      console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-    }        
-    </script>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
 
 </body>
 
