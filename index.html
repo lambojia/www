@@ -6,8 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simple Webpage</title>
     <link rel="stylesheet" href="style.css">  
-    <script defer type="text/javascript" src="config.js"></script>
-    <script defer type="text/javascript" src="klaro.js"></script>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
     <script src="auth.js"></script> 
 </head>
 
@@ -22,7 +21,7 @@
           <img id="profile-picture" src="" alt="Profile Picture">
           <p id="user-name">Hello, User!</p>
           <button class="btn btn-sign-out" id="signout-button" onclick="SignOutEvent()">Sign Out</button>
-          <button class="btn btn-preferences" id="preferences-button" onclick="ManagePreferences()">Manage Preferences</button>
+          <button class="btn btn-preferences" id="preferences-button" onclick="showManager()">Manage Preferences</button>
         </div>
 
         <div id="g_id_onload"
@@ -44,19 +43,20 @@
 
     </div>
 
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script defer type="text/javascript" src="config.js"></script>
+    <script defer type="text/javascript" src="klaro.js"></script>
+    
+    <script>
 
-    <script type="text/javascript" defer>
-    function ManagePreferences() {
-        klaro.show(kConfig, true);
-    }
 
-    klaro.getManager(kConfig).watch({
-        update: function(obj, name, data) {
-            if (name === 'saveConsents')
-                console.log(data);
-        }
-    });
+
+
+
+
+        
+
+
+
     </script>
 
 </body>
