@@ -48,62 +48,79 @@
 
     <script>
 
-    window.addEventListener('DOMContentLoaded', () => {
-
-        const idToken = localStorage.getItem('google_token') || sessionStorage.getItem('google_token'); // Check both
+     window.addEventListener('DOMContentLoaded', () => {
+        const idToken = getCookie('google_token');
 
         if (idToken) {
-          verifyToken(idToken);
+            verifyToken(idToken);
         } else {
-          // No token found, user is not logged in.
-          console.log("No token found on page load.");
-          // ... (Display login button, etc.)
+            console.log("No token found on page load.");
+            // ... (Display login button, etc.)
         }
     });
 
     function verifyToken(idToken) {
-
         fetch('http://localhost:3000/callback', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ token: idToken })
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ token: idToken })
         })
         .then(response => response.json())
         .then(data => {
-          console.log('Success:', data);
-          if (data.success) {
-             localStorage.setItem('google_token', idToken); // Or data.token if your server returns it
-             console.log(data);
-            //window.location.href = "/your-protected-page";
-          } else {
-            localStorage.removeItem('google_token');
-            sessionStorage.removeItem('google_token');
-            console.error("Login Error:", data.message);
-          }
+            console.log('Success:', data);
+            if (data.success) {
+                setCookie('google_token', idToken, 30); // Set cookie for 30 days
+                console.log(data);
+                //window.location.href = "/your-protected-page";
+            } else {
+                deleteCookie('google_token');
+                console.error("Login Error:", data.message);
+            }
         })
         .catch((error) => {
-          localStorage.removeItem('google_token');
-          sessionStorage.removeItem('google_token');
-          console.error('Error:', error);
+            deleteCookie('google_token');
+            console.error('Error:', error);
         });
     }
 
-    function onSignIn(response) { // Correct parameter: response, not googleUser
+    function onSignIn(response) {
+        const idToken = response.credential;
 
-      const idToken = response.credential; // Access credential directly
-
-      if (idToken) {  // Check if token exists
-        verifyToken(idToken);
-      } else {
-        console.error("No ID token received.");
-      }
+        if (idToken) {
+            verifyToken(idToken);
+        } else {
+            console.error("No ID token received.");
+        }
     }
 
-    // No need for google.accounts.id.initialize or google.accounts.id.renderButton here
-    // as the data-callback and data-client_id in the g_id_onload div handles it.
-    </script>
+    // Helper functions for cookie manipulation
+    function setCookie(name, value, days) {
+        const date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        const expires = "expires=" + date.toUTCString();
+        document.cookie = name + "=" + value + ";" + expires + ";path=/"; // path=/ makes the cookie available across the entire site
+    }
+
+    function getCookie(name) {
+        const nameEQ = name + "=";
+        const ca = document.cookie.split(';');
+        for(let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) === ' ') {
+                c = c.substring(1, c.length);
+            }
+            if (c.indexOf(nameEQ) === 0) {
+                return c.substring(nameEQ.length, c.length);
+            }
+        }
+        return null;
+    }
+
+    function deleteCookie(name) {
+        document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    }
 
 </body>
 
