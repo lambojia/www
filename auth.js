@@ -1,13 +1,19 @@
-window.addEventListener('DOMContentLoaded', () => {
+window.onload = function () {
+
     const idToken = getCookie('google_token');
 
     if (idToken) {
         verifyToken(idToken);
     } else {
         console.log("No token found on page load.");
-        // ... (Display login button, etc.)
+        
+        google.accounts.id.initialize({
+          client_id: "540754736098-ahrealgn91kaajougd6nb38u8bphnlg8.apps.googleusercontent.com",
+          callback: onSignIn
+        });
     }
-});
+};
+
 
 function decodeJWT(token) {
     const base64Url = token.split('.')[1]; // Get the payload part of the JWT token
