@@ -3,12 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Google Sign-In and Sign-Out</title>
-  
+  <title>Google Sign-In with Persistence</title>
+
   <!-- Load the Google API library -->
   <script src="https://accounts.google.com/gsi/client" async defer></script>
-  <script src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js"></script>
-
+  
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -22,7 +21,7 @@
 </head>
 <body>
 
-  <h1>Google Sign-In and Sign-Out</h1>
+  <h1>Google Sign-In with Persistence</h1>
   
   <!-- Google Sign-In button -->
   <div id="g_id_onload"
@@ -38,34 +37,69 @@
   <div id="status"></div>
 
   <script>
+    // Decode JWT manually
+    function decodeJWT(token) {
+      const base64Url = token.split('.')[1]; // Get the payload part of the JWT token
+      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/'); // Replace URL-safe characters
+      const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+      }).join(''));
+
+      return JSON.parse(jsonPayload);
+    }
+
     // Initialize Google Sign-In
     function handleCredentialResponse(response) {
-      // Handle the Google login response
-      const user = jwt_decode(response.credential); // Decode JWT token
+      // Decode the JWT token from the Google response
+      const user = decodeJWT(response.credential); // Decode JWT token manually
       console.log("User Info:", user);
+
+      // Save the user data to localStorage
+      localStorage.setItem('user', JSON.stringify(user));
+
+      // Display user info
       document.getElementById("status").innerText = `Hello, ${user.name}!`;
       document.getElementById("signout-button").style.display = 'block'; // Show Sign-Out button
     }
 
     window.onload = function () {
-      google.accounts.id.initialize({
-        client_id: "540754736098-ahrealgn91kaajougd6nb38u8bphnlg8.apps.googleusercontent.com",
-        callback: handleCredentialResponse
-      });
-      
-      google.accounts.id.renderButton(
-        document.getElementById("g_id_onload"),
-        { theme: "outline", size: "large" } // Customize button style
-      );
-    }
+      // Check if the user is already signed in by looking for stored data in localStorage
+      const storedUser = localStorage.getItem('user');
+      if (storedUser) {
+        const user = JSON.parse(storedUser);
+        document.getElementById("status").innerText = `Welcome back, ${user.name}!`;
+        document.getElementById("signout-button").style.display = 'block'; // Show Sign-Out button
+      } else {
+        // If no user data, proceed with the sign-in process
+        google.accounts.id.initialize({
+          client_id: "540754736098-ahrealgn91kaajougd6nb38u8bphnlg8.apps.googleusercontent.com",
+          callback: handleCredentialResponse
+        });
+
+        google.accounts.id.renderButton(
+          document.getElementById("g_id_onload"),
+          { theme: "outline", size: "large" } // Customize button style
+        );
+      }
+    };
 
     // Sign Out functionality
     function signOut() {
       google.accounts.id.disableAutoSelect();
       google.accounts.id.revoke("540754736098-ahrealgn91kaajougd6nb38u8bphnlg8.apps.googleusercontent.com", function(response) {
         console.log("User signed out successfully.");
+
+        // Clear the user data from localStorage
+        localStorage.removeItem('user');
+
         document.getElementById("status").innerText = "You have signed out.";
         document.getElementById("signout-button").style.display = 'none'; // Hide Sign-Out button
+
+        // Optionally, re-render the sign-in button
+        google.accounts.id.renderButton(
+          document.getElementById("g_id_onload"),
+          { theme: "outline", size: "large" }
+        );
       });
     }
   </script>
