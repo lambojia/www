@@ -6,10 +6,11 @@ window.onload = function () {
         verifyToken(idToken);
     } else {
         console.log("No token found on page load.");
-        
+
         google.accounts.id.initialize({
           client_id: "540754736098-ahrealgn91kaajougd6nb38u8bphnlg8.apps.googleusercontent.com",
-          callback: onSignIn
+          callback: onSignIn,
+          login_uri: "http://localhost:3000/callback"
         });
     }
 };
