@@ -20,7 +20,7 @@ function decodeJWT(token) {
     return JSON.parse(jsonPayload);
 }
 
-function verifyToken(idToken , callback) {
+function verifyToken(idToken) {
     fetch('http://localhost:3000/callback', {
         method: 'POST',
         headers: {
@@ -34,8 +34,6 @@ function verifyToken(idToken , callback) {
         if (data.success) {
             setCookie('google_token', idToken, 30); // Set cookie for 30 days
             showProfile(idToken);
-
-            callback();
             //window.location.href = "/your-protected-page";
         } else {
             deleteCookie('google_token');
@@ -92,7 +90,7 @@ function SignInEvent(response) {
     const idToken = response.credential;
 
     if (idToken) {
-        verifyToken(idToken , initKlaro);
+        verifyToken(idToken);
     } else {
         console.error("No ID token received.");
     }
@@ -108,15 +106,3 @@ function SignOutEvent() {
 
 }
 
-function initKlaro() {
-
-    klaro.show(kConfig, true);
-    
-    klaro.getManager(kConfig).watch({
-    update: function(obj, name, data) {
-        if (name === 'saveConsents')
-            console.log(data);
-    }
-});
-
-}
