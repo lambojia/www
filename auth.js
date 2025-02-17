@@ -2,8 +2,6 @@ window.addEventListener('DOMContentLoaded', () => {
     const idToken = getCookie('google_token');
 
     if (idToken) {
-        console.log(decodeJWT(idToken));
-        console.log(JSON.parse(decodeJWT(idToken)));
         verifyToken(idToken);
     } else {
         console.log("No token found on page load.");
@@ -34,7 +32,7 @@ function verifyToken(idToken) {
         console.log('Success:', data);
         if (data.success) {
             setCookie('google_token', idToken, 30); // Set cookie for 30 days
-            console.log(data);
+            showProfile(idToken);
             //window.location.href = "/your-protected-page";
         } else {
             deleteCookie('google_token');
@@ -82,4 +80,33 @@ function getCookie(name) {
 
 function deleteCookie(name) {
     document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+}
+
+function showProfile(idToken) {
+
+    const user = decodeJWT(idToken);
+    // Update UI with user's info
+    document.getElementById('profile-picture').src = user.picture; // Display profile picture
+    document.getElementById('user-name').innerText = `Hello, ${user.name}!`; // Display user name
+
+    // Hide the sign-in button and show the profile container
+    document.getElementById('sign-in-container').style.display = 'none';
+    document.getElementById('profile-container').style.display = 'block';
+}
+
+// Sign out functionality
+function signOut() {
+
+  google.accounts.id.disableAutoSelect();
+  google.accounts.id.revoke("540754736098-ahrealgn91kaajougd6nb38u8bphnlg8.apps.googleusercontent.com", function(response) {
+    console.log("User signed out successfully.");
+    
+    deleteCookie('google_token');
+    
+    // Hide the profile and show the sign-in button
+    document.getElementById('profile-container').style.display = 'none';
+    document.getElementById('sign-in-container').style.display = 'flex';
+
+
+  });
 }
