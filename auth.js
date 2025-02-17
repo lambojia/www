@@ -75,7 +75,7 @@ function deleteCookie(name) {
 }
 
 function showProfile(idToken) {
-
+    console.log(idToken);
     const user = decodeJWT(idToken);
     // Update UI with user's info
     document.getElementById('profile-picture').src = user.picture; // Display profile picture
