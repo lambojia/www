@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- <script src="https://cookiechimp.com/widget/jGRt5Z6.js"></script> !-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Webpage</title>
+    <link rel="stylesheet" href="style.css">
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            const idToken = getCookie('google_token');
+
+            if (idToken) {
+                verifyToken(idToken);
+            } else {
+                console.log("No token found on page load.");
+                // ... (Display login button, etc.)
+            }
+        });
+
+        function verifyToken(idToken) {
+            fetch('http://localhost:3000/callback', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ token: idToken })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+                if (data.success) {
+                    setCookie('google_token', idToken, 30); // Set cookie for 30 days
+                    console.log(data);
+                    //window.location.href = "/your-protected-page";
+                } else {
+                    deleteCookie('google_token');
+                    console.error("Login Error:", data.message);
+                }
+            })
+            .catch((error) => {
+                deleteCookie('google_token');
+                console.error('Error:', error);
+            });
+        }
+
+        function onSignIn(response) {
+            const idToken = response.credential;
+
+            if (idToken) {
+                verifyToken(idToken);
+            } else {
+                console.error("No ID token received.");
+            }
+        }
+
+        // Helper functions for cookie manipulation
+        function setCookie(name, value, days) {
+            const date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            const expires = "expires=" + date.toUTCString();
+            document.cookie = name + "=" + value + ";" + expires + ";path=/"; // path=/ makes the cookie available across the entire site
+        }
+
+        function getCookie(name) {
+            const nameEQ = name + "=";
+            const ca = document.cookie.split(';');
+            for(let i = 0; i < ca.length; i++) {
+                let c = ca[i];
+                while (c.charAt(0) === ' ') {
+                    c = c.substring(1, c.length);
+                }
+                if (c.indexOf(nameEQ) === 0) {
+                    return c.substring(nameEQ.length, c.length);
+                }
+            }
+            return null;
+        }
+
+        function deleteCookie(name) {
+            document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        }
+    </script> 
+</head>
+
+<body>
+
+    <header>
+        <h1>Welcome to My Simple Webpage</h1>
+    </header>
+
+    <main>
+        <div class="container">
+
+        <meta name="google-signin-client_id" content="540754736098-ahrealgn91kaajougd6nb38u8bphnlg8.apps.googleusercontent.com">
+
+        <div  id="g_id_onload"
+              data-client_id="540754736098-ahrealgn91kaajougd6nb38u8bphnlg8.apps.googleusercontent.com"
+              data-callback="onSignIn">  </div>
+        
+        <!-- data-login_uri="http://localhost:3000/callback" -->
+
+        <div class="g_id_signin"
+             data-type="standard"
+             data-shape="rectangular"
+             data-theme="outline"
+             data-text="signin_with"
+             data-size="large"
+             data-logo_alignment="left">
+        </div>
+
+        </div>
+    </main>
+
+    <footer>
+        &copy; 2023 My Website
+    </footer>
+
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+
+
+</body>
+
+</html>
