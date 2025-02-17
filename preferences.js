@@ -41,6 +41,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   function checkAndShowKlaro() {
+    console.log("trigger me");
     if (!klaroLoaded || !configLoaded) {
       return;
     }
