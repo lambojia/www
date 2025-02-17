@@ -88,7 +88,7 @@ function showProfile(idToken) {
     document.getElementById('profile-container').style.display = 'block';
 }
 
-function signMeIn(response) {
+function SignInEvent(response) {
     const idToken = response.credential;
 
     if (idToken) {
@@ -99,7 +99,7 @@ function signMeIn(response) {
 }
 
 // Sign out functionality
-function signMeOut() {
+function SignOutEvent() {
 
     //delete jwt token
     deleteCookie('google_token');
