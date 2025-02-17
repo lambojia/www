@@ -22,6 +22,7 @@
           <img id="profile-picture" src="" alt="Profile Picture">
           <p id="user-name">Hello, User!</p>
           <button class="btn btn-sign-out" id="signout-button" onclick="SignOutEvent()">Sign Out</button>
+          <button class="btn btn-preferences" id="preferences-button" onclick="ManagePreferences()">Manage Preferences</button>
         </div>
 
         <div id="g_id_onload"
@@ -44,6 +45,20 @@
     </div>
 
     <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script type="text/javascript">
+    function ManagePreferences() {
+
+        klaro.show(kConfig, true);
+        
+    }
+
+    klaro.getManager(kConfig).watch({
+        update: function(obj, name, data) {
+            if (name === 'saveConsents')
+                console.log(data);
+        }
+    });
+    </script>
 
 </body>
 
