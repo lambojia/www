@@ -13,36 +13,29 @@
 
 <body>
 
-    <header>
-        <h1>Welcome to My Simple Webpage</h1>
-    </header>
+    <div class="container">
+        <h1>Google Sign-In</h1>
 
-    <main>
-        <div class="container">
-
-        <meta name="google-signin-client_id" content="540754736098-ahrealgn91kaajougd6nb38u8bphnlg8.apps.googleusercontent.com">
-
-        <div  id="g_id_onload"
-              data-client_id="540754736098-ahrealgn91kaajougd6nb38u8bphnlg8.apps.googleusercontent.com"
-              data-callback="onSignIn">  </div>
-        
-        <!-- data-login_uri="http://localhost:3000/callback" -->
-
-        <div class="g_id_signin"
-             data-type="standard"
-             data-shape="rectangular"
-             data-theme="outline"
-             data-text="signin_with"
-             data-size="large"
-             data-logo_alignment="left">
+        <!-- Profile Container (hidden initially) -->
+        <div class="profile-container" id="profile-container">
+            <img id="profile-picture" src="" alt="Profile Picture">
+            <p id="user-name">Hello, User!</p>
+            <button class="btn btn-sign-out" id="signout-button" onclick="signOut()">Sign Out</button>
         </div>
 
+        <!-- Google Sign-In Button -->
+        <div    id="g_id_onload"
+                data-client_id="540754736098-ahrealgn91kaajougd6nb38u8bphnlg8.apps.googleusercontent.com"
+                data-login_uri="http://localhost:3000/callback"
+                data-callback="onSignIn">
         </div>
-    </main>
 
-    <footer>
-        &copy; 2023 My Website
-    </footer>
+        <!-- Sign-In Container (will be hidden once signed in) -->
+        <div class="sign-in-container" id="sign-in-container">
+            <button class="btn" id="sign-in-button">Sign In with Google</button>
+        </div>
+
+    </div>
 
     <script src="script.js" defer></script> 
     <script src="https://accounts.google.com/gsi/client" async defer></script>
