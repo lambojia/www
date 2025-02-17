@@ -98,16 +98,9 @@ function showProfile(idToken) {
 // Sign out functionality
 function signOut() {
 
-  google.accounts.id.disableAutoSelect();
-  google.accounts.id.revoke("540754736098-ahrealgn91kaajougd6nb38u8bphnlg8.apps.googleusercontent.com", function(response) {
-    console.log("User signed out successfully.");
-    
+    //delete jwt token
     deleteCookie('google_token');
-    
-    // Hide the profile and show the sign-in button
-    document.getElementById('profile-container').style.display = 'none';
-    document.getElementById('sign-in-container').style.display = 'flex';
+    //reload page
+    location.reload();
 
-
-  });
 }
