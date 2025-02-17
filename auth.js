@@ -96,7 +96,7 @@ function showProfile(idToken) {
 }
 
 // Sign out functionality
-function signOut() {
+function signMeOut() {
     
     console.log("sign out");
 
