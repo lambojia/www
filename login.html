@@ -1,51 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- <script src="https://cookiechimp.com/widget/jGRt5Z6.js"></script> !-->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple Webpage</title>
-    <link rel="stylesheet" href="style.css">  
-
-    <script src="auth.js" defer></script> 
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Google Sign-In and Sign-Out</title>
+  
+  <!-- Load the Google API library -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 50px;
+    }
+    #signout-button {
+      display: none;
+    }
+  </style>
 </head>
-
 <body>
 
-    <header>
-        <h1>Welcome to My Simple Webpage</h1>
-    </header>
+  <h1>Google Sign-In and Sign-Out</h1>
+  
+  <!-- Google Sign-In button -->
+  <div id="g_id_onload"
+       data-client_id="540754736098-ahrealgn91kaajougd6nb38u8bphnlg8.apps.googleusercontent.com"
+       data-login_uri="http://localhost:3000/callback"
+       data-auto_prompt="false">
+  </div>
 
-    <main>
-        <div class="container">
+  <!-- Sign-Out Button -->
+  <button id="signout-button" onclick="signOut()">Sign Out</button>
+  
+  <!-- Sign-In Status -->
+  <div id="status"></div>
 
-        <meta name="google-signin-client_id" content="540754736098-ahrealgn91kaajougd6nb38u8bphnlg8.apps.googleusercontent.com">
+  <script>
+    // Initialize Google Sign-In
+    function handleCredentialResponse(response) {
+      // Handle the Google login response
+      const user = jwt_decode(response.credential); // Decode JWT token
+      console.log("User Info:", user);
+      document.getElementById("status").innerText = `Hello, ${user.name}!`;
+      document.getElementById("signout-button").style.display = 'block'; // Show Sign-Out button
+    }
 
-          <div  id="g_id_onload"
-                data-client_id="540754736098-ahrealgn91kaajougd6nb38u8bphnlg8.apps.googleusercontent.com"
-                data-callback="onSignIn">  </div>
-          
-          <!-- data-login_uri="http://localhost:3000/callback" -->
+    window.onload = function () {
+      google.accounts.id.initialize({
+        client_id: "540754736098-ahrealgn91kaajougd6nb38u8bphnlg8.apps.googleusercontent.com",
+        callback: handleCredentialResponse
+      });
+      
+      google.accounts.id.renderButton(
+        document.getElementById("g_id_onload"),
+        { theme: "outline", size: "large" } // Customize button style
+      );
+    }
 
-          <div class="g_id_signin"
-               data-type="standard"
-               data-shape="rectangular"
-               data-theme="outline"
-               data-text="signin_with"
-               data-size="large"
-               data-logo_alignment="left">
-          </div>
-
-        </div>
-    </main>
-
-    <footer>
-        &copy; 2023 My Website
-    </footer>
-
-    <script src="script.js" defer></script> 
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    // Sign Out functionality
+    function signOut() {
+      google.accounts.id.disableAutoSelect();
+      google.accounts.id.revoke("540754736098-ahrealgn91kaajougd6nb38u8bphnlg8.apps.googleusercontent.com", function(response) {
+        console.log("User signed out successfully.");
+        document.getElementById("status").innerText = "You have signed out.";
+        document.getElementById("signout-button").style.display = 'none'; // Hide Sign-Out button
+      });
+    }
+  </script>
 
 </body>
-
 </html>
