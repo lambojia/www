@@ -166,6 +166,7 @@
 
     // Sign out functionality
     function signOut() {
+      console.log("signout");
       google.accounts.id.disableAutoSelect();
       google.accounts.id.revoke("540754736098-ahrealgn91kaajougd6nb38u8bphnlg8.apps.googleusercontent.com", function(response) {
         console.log("User signed out successfully.");
