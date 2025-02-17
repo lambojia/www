@@ -92,9 +92,7 @@ function signMeIn(response) {
     const idToken = response.credential;
 
     if (idToken) {
-        verifyToken(idToken , initKlaro {
-
-        });
+        verifyToken(idToken , initKlaro);
     } else {
         console.error("No ID token received.");
     }
