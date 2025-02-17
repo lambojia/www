@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- <script src="https://cookiechimp.com/widget/jGRt5Z6.js"></script> !-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Webpage</title>
+    <link rel="stylesheet" href="style.css">  
+    <script src="auth.js" defer></script> 
+</head>
+
+<body>
+
+    <header>
+        <h1>Welcome to My Simple Webpage</h1>
+    </header>
+
+    <main>
+        <div class="container">
+
+        <meta name="google-signin-client_id" content="540754736098-ahrealgn91kaajougd6nb38u8bphnlg8.apps.googleusercontent.com">
+
+        <div  id="g_id_onload"
+              data-client_id="540754736098-ahrealgn91kaajougd6nb38u8bphnlg8.apps.googleusercontent.com"
+              data-callback="onSignIn">  </div>
+        
+        <!-- data-login_uri="http://localhost:3000/callback" -->
+
+        <div class="g_id_signin"
+             data-type="standard"
+             data-shape="rectangular"
+             data-theme="outline"
+             data-text="signin_with"
+             data-size="large"
+             data-logo_alignment="left">
+        </div>
+          <h2>User Information:</h2>
+          <img id="profile-pic" src="" alt="Profile Picture">
+          <p>Name: <span id="user-name"></span></p>
+          <p>Email: <span id="user-email"></span></p>
+          <button onclick="signOut()">Sign Out</button>
+        </div>
+        
+    </main>
+
+    <footer>
+        &copy; 2023 My Website
+    </footer>
+
+    <script src="script.js" defer></script> 
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+
+</body>
+
+</html>
