@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+window.onload = function () {
 
   let klaroLoaded = false;
   let configLoaded = false;
@@ -61,4 +61,4 @@ document.addEventListener('DOMContentLoaded', function() {
     klaro.show(kConfig, true);
   }
 
-});
+};
