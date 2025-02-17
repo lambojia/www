@@ -6,17 +6,11 @@ window.onload = function () {
         verifyToken(idToken);
     } else {
         console.log("No token found on page load.");
-
-        google.accounts.id.initialize({
-          client_id: "540754736098-ahrealgn91kaajougd6nb38u8bphnlg8.apps.googleusercontent.com",
-          callback: handleCredentialResponse
-        });
     }
 };
 
 
 function decodeJWT(token) {
-
     const base64Url = token.split('.')[1]; // Get the payload part of the JWT token
     const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/'); // Replace URL-safe characters
     const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
@@ -24,12 +18,6 @@ function decodeJWT(token) {
     }).join(''));
 
     return JSON.parse(jsonPayload);
-}
-
-function handleCredentialResponse(response) {
-
-    signMeIn(response.credential);
-
 }
 
 function verifyToken(idToken) {
@@ -44,14 +32,12 @@ function verifyToken(idToken) {
     .then(data => {
         console.log('Success:', data);
         if (data.success) {
-            signMeIn(idToken);
+            setCookie('google_token', idToken, 30); // Set cookie for 30 days
+            showProfile(idToken);
             //window.location.href = "/your-protected-page";
         } else {
             deleteCookie('google_token');
             console.error("Login Error:", data.message);
-
-            //reload page
-            location.reload();
         }
     })
     .catch((error) => {
@@ -100,12 +86,14 @@ function showProfile(idToken) {
     document.getElementById('profile-container').style.display = 'block';
 }
 
+function signMeIn(response) {
+    const idToken = response.credential;
 
-function signMeIn(idToken) {
-
-    setCookie('google_token', idToken, 30); // Set cookie for 30 days
-    showProfile(idToken);
-
+    if (idToken) {
+        verifyToken(idToken);
+    } else {
+        console.error("No ID token received.");
+    }
 }
 
 // Sign out functionality
