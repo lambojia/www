@@ -1,7 +1,7 @@
 window.onload = function () {
 
     const idToken = getCookie('google_token');
-
+    console.log(idToken);
     if (idToken) {
         verifyToken(idToken);
     } else {
@@ -87,13 +87,10 @@ function showProfile(idToken) {
 }
 
 function SignInEvent(response) {
-    const idToken = response.credential;
 
-    if (idToken) {
-        verifyToken(idToken);
-    } else {
-        console.error("No ID token received.");
-    }
+    setCookie('google_token', response, 30); // Set cookie for 30 days
+
+    showProfile(response.credential);
 }
 
 // Sign out functionality
