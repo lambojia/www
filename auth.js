@@ -20,7 +20,7 @@ function decodeJWT(token) {
     return JSON.parse(jsonPayload);
 }
 
-function verifyToken(idToken) {
+function verifyToken(idToken , callback) {
     fetch('http://localhost:3000/callback', {
         method: 'POST',
         headers: {
@@ -30,10 +30,12 @@ function verifyToken(idToken) {
     })
     .then(response => response.json())
     .then(data => {
-        console.log('Success:', data);
+        //console.log('Success:', data);
         if (data.success) {
             setCookie('google_token', idToken, 30); // Set cookie for 30 days
             showProfile(idToken);
+
+            callback();
             //window.location.href = "/your-protected-page";
         } else {
             deleteCookie('google_token');
@@ -90,7 +92,9 @@ function signMeIn(response) {
     const idToken = response.credential;
 
     if (idToken) {
-        verifyToken(idToken);
+        verifyToken(idToken , initKlaro() {
+
+        });
     } else {
         console.error("No ID token received.");
     }
@@ -105,3 +109,4 @@ function signMeOut() {
     location.reload();
 
 }
+
