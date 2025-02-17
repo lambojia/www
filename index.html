@@ -17,6 +17,13 @@
 
         <h1>Google Sign-In with Profile</h1>
 
+        <!-- Profile Container (hidden initially) -->
+        <div class="profile-container" id="profile-container">
+          <img id="profile-picture" src="" alt="Profile Picture">
+          <p id="user-name">Hello, User!</p>
+          <button class="btn btn-sign-out" id="signout-button" onclick="signOut()">Sign Out</button>
+        </div>
+    
         <div  id="g_id_onload"
               data-client_id="540754736098-ahrealgn91kaajougd6nb38u8bphnlg8.apps.googleusercontent.com"
               data-callback="onSignIn">  </div>

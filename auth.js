@@ -1,6 +1,7 @@
 window.addEventListener('DOMContentLoaded', () => {
     const idToken = getCookie('google_token');
-
+    console.log(JSON.parse(idToken));
+    
     if (idToken) {
         verifyToken(idToken);
     } else {
