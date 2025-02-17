@@ -15,7 +15,7 @@
 
     <div class="container">
 
-        <h1>Google Sign-In with Profile</h1>
+        <h1>Consent Management Portal</h1>
 
         <!-- Profile Container (hidden initially) -->
         <div class="profile-container" id="profile-container">
@@ -45,11 +45,10 @@
     </div>
 
     <script src="https://accounts.google.com/gsi/client" async defer></script>
-    <script type="text/javascript">
-    function ManagePreferences() {
 
+    <script type="text/javascript" defer>
+    function ManagePreferences() {
         klaro.show(kConfig, true);
-        
     }
 
     klaro.getManager(kConfig).watch({
