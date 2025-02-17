@@ -1,8 +1,9 @@
 window.addEventListener('DOMContentLoaded', () => {
     const idToken = getCookie('google_token');
-    console.log(JSON.parse(decodeJWT(idToken)));
 
     if (idToken) {
+        console.log(decodeJWT(idToken));
+        console.log(JSON.parse(decodeJWT(idToken)));
         verifyToken(idToken);
     } else {
         console.log("No token found on page load.");
