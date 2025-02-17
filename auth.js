@@ -97,6 +97,8 @@ function showProfile(idToken) {
 
 // Sign out functionality
 function signOut() {
+    
+    console.log("sign out");
 
     //delete jwt token
     deleteCookie('google_token');
