@@ -7,49 +7,49 @@
     <title>Simple Webpage</title>
     <link rel="stylesheet" href="style.css">  
     <script src="https://accounts.google.com/gsi/client" async defer></script>
-    <script src="auth.js"></script> 
 </head>
 
 <body>
 
     <div class="container">
 
-        <h1>Consent Management Portal</h1>
+        <h1>Consent Management Test</h1>
 
         <!-- Profile Container (hidden initially) -->
         <div class="profile-container" id="profile-container">
-          <img id="profile-picture" src="" alt="Profile Picture">
+          <!-- <img id="profile-picture" alt="Profile Picture" src="https://lh3.googleusercontent.com/a/ACg8ocIdfDuO1wTzmzKfuy3C-SwIrKSQaqiAPj8j7JxmcawcHPJYUw=s96-c" /> -->
           <p id="user-name">Hello, User!</p>
           <button class="btn btn-sign-out" id="signout-button" onclick="SignOutEvent()">Sign Out</button>
-          <button class="btn btn-preferences" id="preferences-button" onclick="showManager()">Manage Preferences</button>
+          <button class="btn btn-preferences" id="preferences-button" onclick="showManager()">Manage Consents</button>
         </div>
 
         <div id="g_id_onload"
              data-client_id="540754736098-ahrealgn91kaajougd6nb38u8bphnlg8.apps.googleusercontent.com"
-             data-callback="SignInEvent"
              data-auto_prompt="false"
              data-login_uri="http://localhost:3000/callback"
-             data-ux_mode="popup">  </div>
-        
+             data-ux_mode="redirect">  </div>
+
         <!-- data-login_uri="http://localhost:3000/callback" -->
 
-        <div id="sign-in-container"
-             class="g_id_signin"
-             data-type="standard"
-             data-shape="rectangular"
-             data-theme="outline"
-             data-context="Sign in with Google"
-             data-size="large"
-             data-logo_alignment="left">
+        <div class="sign-in-container" id="sign-in-container">
+            <div
+                 class="g_id_signin"
+                 data-type="standard"
+                 data-theme="outline"
+                 data-text="Sign in with Google"
+                 data-size="large"
+                 data-width="400"
+                 data-logo_alignment="left">
+            </div>
         </div>
+
+
 
     </div>
 
     <script defer type="text/javascript" src="config.js"></script>
     <script defer type="text/javascript" src="klaro.js"></script>
-    <script defer type="text/javascript" src="preferences.js"></script>
-
-    </script>
+    <script defer type="text/javascript" src="helper.js"></script> 
 
 </body>
 

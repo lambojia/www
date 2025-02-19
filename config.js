@@ -16,7 +16,7 @@ var kConfig = {
     // supporting IE9-10 (which you probably shouldn't) you need to use Klaro
     // with an external stylesheet as the dynamic replacement won't work there.
     styling: {
-        "theme": ["left", "bottom", "light"],
+        "theme": ["right", "bottom", "dark"],
     },
 
     // You can show a description in contextual consent overlays for store 
@@ -26,7 +26,7 @@ var kConfig = {
 
     // Setting this to true will keep Klaro from automatically loading itself
     // when the page is being loaded.
-    noAutoLoad: false,
+    noAutoLoad: true,
 
     // Setting this to true will render the descriptions of the consent
     // modal and consent notice are HTML. Use with care.
@@ -54,7 +54,7 @@ var kConfig = {
 
     // You can customize the name of the cookie that Klaro uses for storing
     // user consent decisions. If undefined, Klaro will use 'klaro'.
-    cookieName: 'klaro',
+    cookieName: 'klaro_token',
 
     // You can also set a custom expiration time for the Klaro cookie.
     // By default, it will expire after 120 days.
@@ -177,11 +177,11 @@ var kConfig = {
       description: 'We use Google Analytics to understand how our website is used and to improve your experience.', // Description for the user
       type: 'tracking', // Important: Set type to 'tracking'
       purposes: ['analytics'], // Define the purpose (you might have a custom purpose)
-      default: true, // Optional: Set to true if Google Analytics is enabled by default (GDPR considerations!)
+      default: false, // Optional: Set to true if Google Analytics is enabled by default (GDPR considerations!)
       // GDPR: Set to true if consent is required for analytics.  Important!
       // If "required" is set to true, Klaro will not allow this service to
       // be disabled by the user.
-      required: true,
+      required: false,
       // If "optOut" is set to true, Klaro will load this service even before
       // the user gave explicit consent.
       // We recommend always leaving this "false".
@@ -199,7 +199,7 @@ var kConfig = {
       ],
       callback: function(consent, service) {
 
-        console.log('User consent for service ' + service.name + ': consent=' + consent);
+        //console.log('User consent for service ' + service.name + ': consent=' + consent);
 
         if(consent==true){
           (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -220,7 +220,7 @@ var kConfig = {
       description: 'We use Matomo to analyze website traffic and improve user experience.',
       type: 'tracking',
       purposes: ['analytics'], // Or your custom purposes
-      default: true,
+      default: false,
       required: false,
       optOut: false,
       onlyOnce: true,
@@ -233,7 +233,7 @@ var kConfig = {
       ],
       callback: function(consent, service) {
 
-        console.log('User consent for service ' + service.name + ': consent=' + consent);
+        //console.log('User consent for service ' + service.name + ': consent=' + consent);
 
         if(consent==true){
           var _paq = window._paq = window._paq || [];
@@ -257,19 +257,16 @@ var kConfig = {
       description: 'We use the LinkedIn Insight Tag to measure and optimize our LinkedIn advertising campaigns.', // User-friendly description
       type: 'marketing', // Or 'advertising', choose the appropriate type
       purposes: ['advertising'], // Define the purpose (you might have a custom purpose)
-      default: true,
+      default: false,
       required: false,
       optOut: false,
       onlyOnce: true,
       cookies: [ // List the cookies used by LinkedIn Insight Tag. This is crucial for transparency.
-        'bcookie',
-        'li_fat_id',
-        'li_gc',
-        'lidc',
+        ['bcookie', '/', '.linkedin.com']
       ],
       callback: function(consent, service) {
 
-        console.log('User consent for service ' + service.name + ': consent=' + consent);
+        //console.log('User consent for service ' + service.name + ': consent=' + consent);
 
         if(consent==true){
           // Load the LinkedIn Insight Tag script. Do this ONLY when consent is given!

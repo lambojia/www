@@ -66,7 +66,7 @@
     }
 
     .btn-preferences {
-      display: none;
+      display: block;
     }
     
     .btn-sign-out:hover {

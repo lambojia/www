@@ -1,0 +1,177 @@
+// we set up Klaro with the config
+klaro.setup(kConfig);
+
+const GOOGLE_TOKEN_NAME = 'google_token';
+const KLARO_TOKEN_NAME = 'klaro_token';
+
+const ORIGIN = () => {
+    const currentURL = new URL(window.location.href);
+    return currentURL.origin;
+}
+
+window.onload = function () {
+
+    const token = getCookie(GOOGLE_TOKEN_NAME);
+
+    if (!token) {
+        console.error("Token not found");
+        return;
+    }
+
+    //verifies token with the backend and shows user info onload
+    verifyToken(token)
+    .then(data => {
+
+        //display user profile
+        showProfile(data);
+        
+        //set consent
+        SetConsent(data.consent);
+
+    })
+    .catch(error => {
+        
+        //remove app tokens
+        cleanUp();
+
+        console.error("An error occurred during token verification:", error);
+    });
+};
+
+function SetConsent(consent) {
+
+    if (!consent) {
+        //show klaro non-modal when no consent is available
+        klaro.show(undefined, false);
+    } else {
+
+        for( app in consent ) {
+            klaro.getManager().updateConsent(app,  consent[app]);
+        }
+
+        klaro.getManager().saveAndApplyConsents();
+    }
+
+    //set watcher for saving consent to backend
+    klaro.getManager(kConfig).watch({
+        update: function(obj, name, data) {
+          if (name === 'saveConsents') {
+            UpdateConsent(data.consents);
+          }
+        }
+    });
+
+}
+
+function UpdateConsent(consent) {
+
+  const token = getCookie(GOOGLE_TOKEN_NAME);
+
+  if (!token) {
+      console.error("Token not found");
+      return;
+  }
+
+  fetch(ORIGIN() + ':3000/consent', {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({token: token , consent: consent})
+  })
+  .then(response => response.json())
+  .then(data => {
+    console.log(data);
+  })
+  .catch((error) => {
+      console.error('Error:', error);
+  });
+
+}
+
+function showManager() {
+
+    //show klaro modal window
+    klaro.show();
+}
+
+function verifyToken(token) {  // No callback parameter
+
+  return fetch(ORIGIN() + ':3000/verify', { // Return the fetch Promise
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ token: token })
+  })
+    .then(response => {
+        if (!response.ok) { // Check for HTTP errors (non-2xx status codes)
+            throw new Error(`HTTP error! status: ${response.status}`); // Throw an error to be caught by .catch
+        }
+        return response.json(); // Parse JSON only if the response is ok
+    })
+    .then(data => {
+      if (data.success) {
+        return data.message; // Resolve the Promise with the message
+      } else {
+        return Promise.reject(data); // Reject the Promise with the error data
+      }
+    })
+    .catch(error => {
+      return Promise.reject(error); // Reject the promise to be caught by the caller
+    });
+}
+
+function getCookie(name) {
+    const nameEQ = name + "=";
+    const ca = document.cookie.split(';');
+    for(let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) === ' ') {
+            c = c.substring(1, c.length);
+        }
+        if (c.indexOf(nameEQ) === 0) {
+            return c.substring(nameEQ.length, c.length);
+        }
+    }
+    return null;
+}
+
+function setCookie(name, value, days) {
+    const date = new Date();
+    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+    const expires = "expires=" + date.toUTCString();
+    document.cookie = name + "=" + value + ";" + expires + ";path=/"; // path=/ makes the cookie available across the entire site
+}
+
+function cleanUp() {
+    deleteCookie(KLARO_TOKEN_NAME);
+    deleteCookie(GOOGLE_TOKEN_NAME);
+}
+
+
+function deleteCookie(name) {
+    document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+}
+
+function showProfile(user) {
+
+    // Update UI with user's info
+    //document.getElementById('profile-picture').src = user.picture; // Display profile picture
+    document.getElementById('user-name').innerText = `Hello, ${user.name}!`; // Display user name
+
+    // Hide the sign-in button and show the profile container
+    document.getElementById('sign-in-container').style.display = 'none';
+    document.getElementById('profile-container').style.display = 'block';
+}
+
+// Sign out functionality
+function SignOutEvent() {
+
+    //delete tokens
+    cleanUp();
+
+    //reload page
+    location.reload();
+
+}

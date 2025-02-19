@@ -1,2 +1,5 @@
 node
-react
+docker-compose.yml
+.env
+credentials.json
+default.conf
