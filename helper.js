@@ -4,11 +4,6 @@ klaro.setup(kConfig);
 const GOOGLE_TOKEN_NAME = 'google_token';
 const KLARO_TOKEN_NAME = 'klaro_token';
 
-const ORIGIN = () => {
-    const currentURL = new URL(window.location.href);
-    return currentURL.origin;
-}
-
 window.onload = function () {
 
     const token = getCookie(GOOGLE_TOKEN_NAME);
@@ -72,7 +67,7 @@ function UpdateConsent(consent) {
       return;
   }
 
-  fetch(ORIGIN() + ':3000/consent', {
+  fetch('https://identity.alipyo.com/consent', {
       method: 'POST',
       headers: {
           'Content-Type': 'application/json'
@@ -97,7 +92,7 @@ function showManager() {
 
 function verifyToken(token) {  // No callback parameter
 
-  return fetch(ORIGIN() + ':3000/verify', { // Return the fetch Promise
+  return fetch('https://identity.alipyo.com/verify', { // Return the fetch Promise
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
