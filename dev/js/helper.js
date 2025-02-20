@@ -77,14 +77,10 @@ export function deleteCookie(name) {
 
 }
 
-export function basePath(page) {
+export function basePath() {
     
     const fullUrl = window.location.href;
     const baseUrl = fullUrl.substring(0, fullUrl.lastIndexOf("/") + 1);
-
-    if (page) {
-        return baseUrl + page;
-    }
 
     return baseUrl;
 }
