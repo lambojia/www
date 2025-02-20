@@ -5,10 +5,20 @@ const GOOGLE_TOKEN_NAME = 'google_token';
 const KLARO_TOKEN_NAME = 'klaro_token';
 
 window.onload = function () {
+    
+    const urlParams = new URLSearchParams(window.location.search);
 
-    const token = getCookie(GOOGLE_TOKEN_NAME);
+    const cookie = getCookie(GOOGLE_TOKEN_NAME);
 
-    if (!token) {
+    const uuid = urlParams.get('uuid');
+
+    let token;
+
+    if (uuid) {
+        token = uuid;
+    } else if(cookie) {
+        token = cookie;
+    } else {
         console.error("Token not found");
         return;
     }
@@ -16,6 +26,9 @@ window.onload = function () {
     //verifies token with the backend and shows user info onload
     verifyToken(token)
     .then(data => {
+
+        //write token to cookie
+        setCookie(GOOGLE_TOKEN_NAME, token, 1);
 
         //display user profile
         showProfile(data);
@@ -67,7 +80,7 @@ function UpdateConsent(consent) {
       return;
   }
 
-  fetch('https://identity.alipyo.com/consent', {
+  fetch('http://localhost:3000/consent', {
       method: 'POST',
       headers: {
           'Content-Type': 'application/json'
@@ -92,7 +105,7 @@ function showManager() {
 
 function verifyToken(token) {  // No callback parameter
 
-  return fetch('https://identity.alipyo.com/verify', { // Return the fetch Promise
+  return fetch('http://localhost:3000/verify', { // Return the fetch Promise
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'

@@ -26,7 +26,7 @@
 
     .profile-container {
       margin-top: 20px;
-      display: none;
+      display: block;
       margin-bottom: 20px;
     }
 
@@ -71,9 +71,4 @@
     
     .btn-sign-out:hover {
       background-color: #c1351d;
-    }
-
-    .sign-in-container {
-      display: flex;
-      justify-content: center;
     }
