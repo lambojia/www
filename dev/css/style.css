@@ -65,10 +65,15 @@
       background-color: #db4437;
     }
 
-    .btn-preferences {
-      display: block;
-    }
-    
     .btn-sign-out:hover {
       background-color: #c1351d;
+    }
+
+    .btn-preferences {
+      background-color: #28a745;
+
+    }
+
+   .btn-preferences:hover {
+      background-color: #218838;
     }

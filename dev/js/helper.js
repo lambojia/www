@@ -13,6 +13,8 @@ export const API_ENDPOINT_VERIFY = `${API_ENDPOINT}/verify`;
 
 export const API_ENDPOINT_CONSENT = `${API_ENDPOINT}/consent`;
 
+export const API_ENDPOINT_SIGNOUT = `${API_ENDPOINT}/signout`;
+
 export function verifyToken(token) {  // No callback parameter
 
   return fetch(API_ENDPOINT_VERIFY, { // Return the fetch Promise
@@ -62,7 +64,24 @@ export function setCookie(name, value, days) {
     document.cookie = name + "=" + value + ";" + expires + ";path=/"; // path=/ makes the cookie available across the entire site
 }
 
-export function cleanUp() {
+function signOut(token) { 
+
+    fetch(API_ENDPOINT_SIGNOUT, { 
+        method: 'POST',
+        headers: {
+        'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ token: token })
+    });
+}
+
+export async function cleanUp() {
+
+    let cookie = getCookie(GOOGLE_TOKEN_NAME);
+
+    if(cookie) {
+        await signOut(cookie);
+    }
 
     deleteCookie(KLARO_TOKEN_NAME);
     deleteCookie(GOOGLE_TOKEN_NAME);
