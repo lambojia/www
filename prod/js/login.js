@@ -1,8 +1,8 @@
 
-import { verifyToken, setCookie, getCookie, cleanUp, GOOGLE_TOKEN_NAME, GOOGLE_CLIENT_ID, GOOGLE_LOGIN_URI, } from './helper.js';
+import { verifyToken, setCookie, getCookie, cleanUp, basePath, GOOGLE_TOKEN_NAME, GOOGLE_CLIENT_ID, GOOGLE_LOGIN_URI, } from './helper.js';
 
 window.onload = function () {
-    
+
     const urlParams = new URLSearchParams(window.location.search);
 
     const cookie = getCookie(GOOGLE_TOKEN_NAME);
@@ -28,8 +28,7 @@ window.onload = function () {
         //write token to cookie
         setCookie(GOOGLE_TOKEN_NAME, token, 1);
 
-        //goto dashboard view
-        window.location.replace('/dashboard.html');
+        window.location.replace(basePath() + 'dashboard.html');
 
     })
     .catch(error => {

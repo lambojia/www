@@ -1,5 +1,5 @@
 
-const API_ENDPOINT = 'http://indentity.alipyo.com';
+const API_ENDPOINT = 'https://indentity.pve.alipyo.com';
 
 export const GOOGLE_TOKEN_NAME = 'google_token';
 
@@ -12,6 +12,8 @@ export const GOOGLE_LOGIN_URI = `${API_ENDPOINT}/callback`;
 export const API_ENDPOINT_VERIFY = `${API_ENDPOINT}/verify`;
 
 export const API_ENDPOINT_CONSENT = `${API_ENDPOINT}/consent`;
+
+export const API_ENDPOINT_SIGNOUT = `${API_ENDPOINT}/signout`;
 
 export function verifyToken(token) {  // No callback parameter
 
@@ -62,17 +64,42 @@ export function setCookie(name, value, days) {
     document.cookie = name + "=" + value + ";" + expires + ";path=/"; // path=/ makes the cookie available across the entire site
 }
 
-export function cleanUp() {
+function signOut(token) { 
+
+    fetch(API_ENDPOINT_SIGNOUT, { 
+        method: 'POST',
+        headers: {
+        'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ token: token })
+    });
+}
+
+export async function cleanUp() {
+
+    let cookie = getCookie(GOOGLE_TOKEN_NAME);
+
+    if(cookie) {
+        await signOut(cookie);
+    }
 
     deleteCookie(KLARO_TOKEN_NAME);
     deleteCookie(GOOGLE_TOKEN_NAME);
 
     //reload to login 
-    window.location.replace('/');
+    window.location.replace(basePath());
 }
 
 export function deleteCookie(name) {
 
     document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 
+}
+
+export function basePath() {
+    
+    const fullUrl = window.location.href;
+    const baseUrl = fullUrl.substring(0, fullUrl.lastIndexOf("/") + 1);
+
+    return baseUrl;
 }
