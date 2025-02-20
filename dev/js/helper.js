@@ -68,11 +68,23 @@ export function cleanUp() {
     deleteCookie(GOOGLE_TOKEN_NAME);
 
     //reload to login 
-    window.location.replace('/');
+    window.location.replace(basePath());
 }
 
 export function deleteCookie(name) {
 
     document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 
+}
+
+export function basePath(page) {
+    
+    const fullUrl = window.location.href;
+    const baseUrl = fullUrl.substring(0, fullUrl.lastIndexOf("/") + 1);
+
+    if (page) {
+        return baseUrl + page;
+    }
+
+    return baseUrl;
 }
