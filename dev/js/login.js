@@ -28,8 +28,10 @@ window.onload = function () {
         //write token to cookie
         setCookie(GOOGLE_TOKEN_NAME, token, 1);
 
+        console.log(basePath());
+
         //goto dashboard view
-        window.location.replace(basePath('dashboard.html'));
+        //window.location.replace(basePath('dashboard.html'));
 
     })
     .catch(error => {
