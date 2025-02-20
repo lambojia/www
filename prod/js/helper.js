@@ -1,5 +1,5 @@
 
-const API_ENDPOINT = 'https://indentity.alipyo.com';
+const API_ENDPOINT = 'https://identity.alipyo.com';
 
 export const GOOGLE_TOKEN_NAME = 'google_token';
 
