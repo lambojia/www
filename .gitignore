@@ -3,4 +3,3 @@ docker-compose.yml
 .env
 credentials.json
 default.conf
-dev

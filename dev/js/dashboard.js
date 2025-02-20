@@ -24,7 +24,7 @@ window.onload = function () {
 
     })
     .catch(error => {
-        console.error("An error occurred during token verification:", error); 
+        cleanUp();
     });
 
 };
