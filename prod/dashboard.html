@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- <script src="https://cookiechimp.com/widget/jGRt5Z6.js"></script> !-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consent Manager</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" href="css/style.css">  
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Consent Management Test</h1>
+
+        <!-- Profile Container (hidden initially) -->
+        <div class="profile-container" id="profile-container">
+          <!-- <img id="profile-picture" alt="Profile Picture" src="https://lh3.googleusercontent.com/a/ACg8ocIdfDuO1wTzmzKfuy3C-SwIrKSQaqiAPj8j7JxmcawcHPJYUw=s96-c" /> -->
+          <p id="user-name">Hello, User!</p>
+          <button class="btn btn-sign-out" id="signout-button" onclick="SignOut()">Sign Out</button>
+          <button class="btn btn-preferences" id="preferences-button" onclick="klaro.show();">Manage Consents</button>
+        </div>
+
+    </div>
+
+    <script defer type="text/javascript" src="js/config.js"></script>
+    <script defer type="text/javascript" src="js/klaro.js"></script>
+    <script defer type="module" src="js/dashboard.js"></script> 
+
+</body>
+
+</html>
