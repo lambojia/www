@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Huge Hello World</title>
+<style>
+body {
+        font-family: 'Arial', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background-color: #f0f0f0; /* Light gray background */
+}
+
+.huge-text {
+  font-size: 10em; /* Adjust size as needed */
+  font-weight: bold;
+  color: #3366cc; /* Blue color */
+  text-shadow: 4px 4px 6px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+  font-family: 'Arial', sans-serif; /* Example font */
+  animation: colorChange 5s infinite alternate; /* add a simple color changing animation */
+}
+
+@keyframes colorChange{
+    0%{
+        color: #3366cc;
+    }
+    100%{
+        color: #cc3366;
+    }
+}
+</style>
+</head>
+<body>
+  <div class="huge-text">Hello World!</div>
+  <script type="text/javascript" src="http://localhost:3000/cm/demo01.js"></script>
+  <script type="text/javascript">
+    function getID() {
+      return '1';
+    };
+    InitConsentManager({identifier: getID()});
+  </script>
+</body>
+</html>
