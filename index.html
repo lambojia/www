@@ -35,12 +35,20 @@ body {
 </head>
 <body>
   <div class="huge-text">Hello World!</div>
-  <script type="text/javascript" src="http://localhost:3000/cm/demo01.js"></script>
+  <!-- Place this tag near the end of the head section of your html code -->
+  <script type="text/javascript" src="https://client.consent.alipyo.com/cm/demo4OmTq.js"></script>
+  <script type="text/javascript" src="https://client.consent.alipyo.com/www/comjs.js" data-endpoint="https://client.consent.alipyo.com/cm/demo4OmTq.js"></script>
+  <script type="text/javascript" src="https://client.consent.alipyo.com/www/klarojs.js"></script>
   <script type="text/javascript">
     function getID() {
       return '1';
     };
-    InitConsentManager({identifier: getID()});
+    /*Replace <USER_ID> with a variable or a function
+    that has a reference to the logged in user.*/
+    InitConsentManager({identifier: <USER_ID>});
+    if (typeof InitConsentManager === 'function') {
+      InitConsentManager({ identifier: data.email });
+    }
   </script>
 </body>
 </html>
