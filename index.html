@@ -1,25 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Huge Hello World</title>
-  <link rel="stylesheet" href="style.css">  
-  <!-- Place this tag near the end of the head section of your html code -->
-  <script type="text/javascript" src="https://client.consent.alipyo.com/cm/demoaOBiY.js"></script>
-  <script type="text/javascript" src="https://client.consent.alipyo.com/www/comjs.js" data-endpoint="https://client.consent.alipyo.com/cm/demoaOBiY.js"></script>
-  <script type="text/javascript" src="https://client.consent.alipyo.com/www/klarojs.js"></script>
+<meta charset="UTF-8">
+<title>Huge Hello World</title>
+<link rel="stylesheet" href="style.css">  
+
+<script type="text/javascript" src="https://client.consent-dev.alipyo.com/cm/demozO6mH.js"></script>
+<script type="text/javascript" src="https://client.consent-dev.alipyo.com/www/comjs.js" data-endpoint="https://client.consent-dev.alipyo.com/cm/demozO6mH.js"></script>
+<script type="text/javascript" src="https://client.consent-dev.alipyo.com/www/klarojs.js"></script>
+
 </head>
 <body>
-  <div class="huge-text">Hello World!</div>
-  <script type="text/javascript">
-    function getID() {
-      return '1';
-    };
-    /*Replace <USER_ID> with a variable or a function
-    that has a reference to the logged in user.*/
-    if (typeof InitConsentManager === 'function') {
-      InitConsentManager({ identifier: getID() });
-    }
-  </script>
+<div class="huge-text">Hello World!</div>
+<script type="text/javascript">
+function getID() {
+return 'foo';
+};
+
+/*Replace <USER_ID> with a variable or a function
+that has a reference to the logged in user.*/
+if (typeof InitConsentManager === 'function') {
+InitConsentManager({ identifier: getID() });
+}
+
+</script>
 </body>
 </html>
