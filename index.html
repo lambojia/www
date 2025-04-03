@@ -5,7 +5,25 @@
 <title>Huge Hello World</title>
 <link rel="stylesheet" href="style.css">  
 
-<script type="text/javascript" src="https://client.consent.alipyo.com/cm/prod01.js"></script>
+<script type="text/javascript" src="https://client.consent-dev.alipyo.com/cm/demo02.js"></script>
+<script type="text/javascript" src="https://client.consent-dev.alipyo.com/www/comjs.js" data-endpoint="https://client.consent-dev.alipyo.com/cm/demo02.js"></script>
+<script type="text/javascript" src="https://client.consent-dev.alipyo.com/www/klarojs.js"></script>
+
+<style type="text/css">
+/*
+consent manager can be override here
+
+ie:
+
+#cookieScreen > div.cm-modal.cm-klaro {
+	background-color: #008080 !important;
+}
+#cookieScreen > div.cm-modal.cm-klaro > div.cm-header > h1 > span > span,
+.cm-list-title  {
+	color: white !important;
+}
+*/
+</style>
 
 </head>
 <body>
@@ -22,5 +40,8 @@ InitConsentManager({ identifier: getID() });
 }
 
 </script>
+<footer>
+<p>&copy; 2023 My Footer | <a onclick="return klaro.show();">Privacy Policy</a> | <a href="#">Terms of Service</a> | <a href="#">Contact</a></p>
+</footer>
 </body>
 </html>

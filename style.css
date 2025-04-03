@@ -1,27 +1,48 @@
 body {
-        font-family: 'Arial', sans-serif;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  margin: 0;
-  background-color: #f0f0f0; /* Light gray background */
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+    overflow: hidden; /* Prevent vertical scrollbar */
 }
 
 .huge-text {
-  font-size: 10em; /* Adjust size as needed */
-  font-weight: bold;
-  color: #3366cc; /* Blue color */
-  text-shadow: 4px 4px 6px rgba(0, 0, 0, 0.2); /* Subtle shadow */
-  font-family: 'Arial', sans-serif; /* Example font */
-  animation: colorChange 5s infinite alternate; /* add a simple color changing animation */
+    font-size: 10em;
+    font-weight: bold;
+    color: #3366cc;
+    text-shadow: 4px 4px 6px rgba(0, 0, 0, 0.2);
+    font-family: 'Arial', sans-serif;
+    animation: colorChange 5s infinite alternate;
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-@keyframes colorChange{
-    0%{
+@keyframes colorChange {
+    0% {
         color: #3366cc;
     }
-    100%{
+    100% {
         color: #cc3366;
     }
+}
+
+footer {
+    background-color: #e0e0e0;
+    padding: 10px;
+    text-align: center;
+    border-top: 1px solid #ccc;
+    width: 100%;
+}
+
+footer a {
+    color: blue;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
 }
