@@ -2,21 +2,11 @@
 <html lang="en">
 <head>
 
-<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-THH2VJLH');</script>
-<!-- End Google Tag Manager -->
-
 <meta charset="UTF-8">
 <title>Huge Hello World</title>
 <link rel="stylesheet" href="style.css">  
 
-<script type="text/javascript" src="https://consent-dev.alipyo.com/dist/demo01.js"></script>
-<script type="text/javascript" src="https://consent-dev.alipyo.com/dist/comjs.js" data-endpoint="https://client.consent-dev.alipyo.com/cm/demo01.js"></script>
-<script type="text/javascript" src="https://client.consent-dev.alipyo.com/www/klarojs.js"></script>
+<script type="text/javascript" src="https://client.consent.alipyo.com/deploy/demo02.js"></script>
 
 <style type="text/css">
 /*
@@ -36,24 +26,9 @@ ie:
 
 </head>
 <body>
-
-
-
 <div class="huge-text">Hello World!</div>
-<script type="text/javascript">
-function getID() {
-return 'bar';
-};
-
-/*Replace <USER_ID> with a variable or a function
-that has a reference to the logged in user.*/
-if (typeof InitConsentManager === 'function') {
-InitConsentManager({ identifier: getID() });
-}
-
-</script>
 <footer>
-<p>&copy; 2023 My Footer | <a onclick="return klaro.show();">Privacy Policy</a> | <a href="#">Terms of Service</a> | <a href="#">Contact</a></p>
+<p>&copy; 2023 My Footer | <a onclick="ShowConsentManager()">Privacy Policy</a> | <a href="#">Terms of Service</a> | <a href="#">Contact</a></p>
 </footer>
 </body>
 </html>
